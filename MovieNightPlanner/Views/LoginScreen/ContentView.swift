@@ -11,7 +11,7 @@ import FirebaseAuth
 struct ContentView: View {
     @Namespace var namespace
     
-    @State private var isShowingLoginTab = true
+    @StateObject var loginViewModel = LoginViewModel()
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -27,11 +27,11 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
             
-            if isShowingLoginTab {
-                LoginTabView(isShowingLoginTab: $isShowingLoginTab, namespace: namespace)
+            if loginViewModel.isShowingLoginTab {
+                LoginTabView(loginViewModel: loginViewModel, namespace: namespace)
                     .zIndex(1)
             } else {
-                SignUpTabView(isShowingLoginTab: $isShowingLoginTab, namespace: namespace)
+                SignUpTabView(loginViewModel: loginViewModel, namespace: namespace)
                     .zIndex(2)
             }
         }

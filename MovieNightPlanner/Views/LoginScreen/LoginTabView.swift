@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct LoginTabView: View {
-    @State private var emailAddress: String = ""
-    @State private var password: String = ""
+    @ObservedObject var loginViewModel: LoginViewModel
     
-    @Binding var isShowingLoginTab: Bool
+    //@State private var emailAddress: String = ""
+    //@State private var password: String = ""
+    
+    //@Binding var isShowingLoginTab: Bool
     
     var namespace: Namespace.ID
     
@@ -32,16 +34,27 @@ struct LoginTabView: View {
             .padding(.horizontal)
             
             VStack(spacing: 20) {
-                CustomTextField(title: "Email address", text: $emailAddress, leadingIcon: "envelope", keyboardType: .emailAddress)
+                CustomTextField(title: "Email address", text: $loginViewModel.email, leadingIcon: "envelope", keyboardType: .emailAddress)
                     
-                CustomTextField(title: "Password", text: $password, leadingIcon: "key", isPassword: true)
+                VStack(alignment: .trailing) {
+                    CustomTextField(title: "Password", text: $loginViewModel.password, leadingIcon: "key", isPassword: true)
+                    
+                    Button {
+                        // Navigate to forgot password screen
+                    } label: {
+                        Text("Forgot password?")
+                            .foregroundColor(.secondary)
+                    }
+                    .buttonStyle(.plain)
+
+                }
             }
             .padding(.top, 30)
             .matchedGeometryEffect(id: "textfields", in: namespace)
             
             VStack {
                 Button {
-                    // sign in
+                    loginViewModel.signIn()
                 } label: {
                     ZStack(alignment: .center) {
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -57,7 +70,7 @@ struct LoginTabView: View {
                 
                 Button {
                     withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                        isShowingLoginTab.toggle()
+                        loginViewModel.isShowingLoginTab.toggle()
                     }
                 } label: {
                     Text("or Sign Up")
@@ -83,7 +96,7 @@ struct LoginTabView_Previews: PreviewProvider {
     @Namespace static var namespace
     
     static var previews: some View {
-        LoginTabView(isShowingLoginTab: .constant(false), namespace: namespace)
+        LoginTabView(loginViewModel: LoginViewModel(), namespace: namespace)
             .preferredColorScheme(.dark)
     }
 }

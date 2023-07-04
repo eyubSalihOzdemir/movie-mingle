@@ -10,6 +10,7 @@
 		257D93592A528D810047DDEC /* LoginTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D93582A528D810047DDEC /* LoginTabView.swift */; };
 		257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935A2A528E3D0047DDEC /* SignUpTabView.swift */; };
 		257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935C2A528EF40047DDEC /* CustomTextField.swift */; };
+		259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259483BE2A54513F00152705 /* LoginViewModel.swift */; };
 		25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */; };
 		25A25C7E2A50C23E00FEFDED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7D2A50C23E00FEFDED /* ContentView.swift */; };
 		25A25C802A50C23F00FEFDED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C7F2A50C23F00FEFDED /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		257D93582A528D810047DDEC /* LoginTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTabView.swift; sourceTree = "<group>"; };
 		257D935A2A528E3D0047DDEC /* SignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTabView.swift; sourceTree = "<group>"; };
 		257D935C2A528EF40047DDEC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		259483BE2A54513F00152705 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		25A25C782A50C23E00FEFDED /* MovieNightPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieNightPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNightPlannerApp.swift; sourceTree = "<group>"; };
 		25A25C7D2A50C23E00FEFDED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,14 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
+		259483BD2A54512900152705 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				259483BE2A54513F00152705 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		25A25C6F2A50C23E00FEFDED = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +96,7 @@
 			children = (
 				25EE71932A515D1700B790BB /* Core */,
 				25EE71922A515D0900B790BB /* Views */,
+				259483BD2A54512900152705 /* ViewModels */,
 				25EE71952A51848100B790BB /* Components */,
 				25EE71942A515D2500B790BB /* Utils */,
 				25A25C7F2A50C23F00FEFDED /* Assets.xcassets */,
@@ -278,6 +289,7 @@
 				25EE71992A51AE6200B790BB /* MoviePosterView.swift in Sources */,
 				257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */,
 				25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */,
+				259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */,
 				257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

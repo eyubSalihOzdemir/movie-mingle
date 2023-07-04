@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SignUpTabView: View {
-    @State private var emailAddress: String = ""
-    @State private var password: String = ""
-    @State private var username: String = ""
+    @ObservedObject var loginViewModel: LoginViewModel
     
-    @Binding var isShowingLoginTab: Bool
+    //@State private var emailAddress: String = ""
+    //@State private var password: String = ""
+    //@State private var username: String = ""
+    
+    //@Binding var isShowingLoginTab: Bool
     
     var namespace: Namespace.ID
 
@@ -34,31 +36,31 @@ struct SignUpTabView: View {
                     Text("Create an account")
                         .font(.system(size: 30, weight: .semibold))
                         .multilineTextAlignment(.center)
-                        .opacity(isShowingLoginTab ? 0 : 1)
+                        .opacity(loginViewModel.isShowingLoginTab ? 0 : 1)
                     
                     Text("Plan a movie night event with your friends")
                         .font(.headline.weight(.medium))
                         .foregroundColor(.secondary)
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
-                        .opacity(isShowingLoginTab ? 0 : 1)
+                        .opacity(loginViewModel.isShowingLoginTab ? 0 : 1)
                 }
                 .padding(.top, 10)
                 .padding(.horizontal)
                 
                 VStack(spacing: 20) {
-                    CustomTextField(title: "Email address", text: $emailAddress, leadingIcon: "envelope", keyboardType: .emailAddress)
+                    CustomTextField(title: "Email address", text: $loginViewModel.email, leadingIcon: "envelope", keyboardType: .emailAddress)
                     
-                    CustomTextField(title: "Username", text: $emailAddress, leadingIcon: "person")
+                    CustomTextField(title: "Username", text: $loginViewModel.email, leadingIcon: "person")
                     
-                    CustomTextField(title: "Password", text: $password, leadingIcon: "key", isPassword: true)
+                    CustomTextField(title: "Password", text: $loginViewModel.password, leadingIcon: "key", isPassword: true)
                 }
                 .padding(.top, 30)
                 .matchedGeometryEffect(id: "textfields", in: namespace)
                 
                 VStack {
                     Button {
-                        // sign in
+                        loginViewModel.signUp()
                     } label: {
                         ZStack(alignment: .center) {
                             RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -74,7 +76,7 @@ struct SignUpTabView: View {
                     
                     Button {
                         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-                            isShowingLoginTab.toggle()
+                            loginViewModel.isShowingLoginTab.toggle()
                         }
                     } label: {
                         Text("or go back to Login")
@@ -87,7 +89,6 @@ struct SignUpTabView: View {
             }
             .frame(maxWidth: .infinity)
             .cornerRadius(30, corners: [.topLeft, .topRight])
-            //.ignoresSafeArea()
         }
     }
 }
@@ -96,7 +97,7 @@ struct SignUpTabView_Previews: PreviewProvider {
     @Namespace static var namespace
     
     static var previews: some View {
-        SignUpTabView(isShowingLoginTab: .constant(false), namespace: namespace)
+        SignUpTabView(loginViewModel: LoginViewModel(), namespace: namespace)
             .preferredColorScheme(.dark)
     }
 }
