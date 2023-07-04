@@ -7,18 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		257D93592A528D810047DDEC /* LoginTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D93582A528D810047DDEC /* LoginTabView.swift */; };
+		257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935A2A528E3D0047DDEC /* SignUpTabView.swift */; };
+		257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935C2A528EF40047DDEC /* CustomTextField.swift */; };
 		25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */; };
 		25A25C7E2A50C23E00FEFDED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7D2A50C23E00FEFDED /* ContentView.swift */; };
 		25A25C802A50C23F00FEFDED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C7F2A50C23F00FEFDED /* Assets.xcassets */; };
 		25A25C832A50C23F00FEFDED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */; };
+		25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */; };
+		25EE718E2A5152C800B790BB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718D2A5152C800B790BB /* Extensions.swift */; };
+		25EE71902A5152FE00B790BB /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718F2A5152FE00B790BB /* Blur.swift */; };
+		25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */; };
+		25EE71992A51AE6200B790BB /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE71982A51AE6200B790BB /* MoviePosterView.swift */; };
+		6EDBD6ED30C2AE7C79D7253C /* Pods_MovieNightPlanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F8251BBB09A505B3048874 /* Pods_MovieNightPlanner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		257D93582A528D810047DDEC /* LoginTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTabView.swift; sourceTree = "<group>"; };
+		257D935A2A528E3D0047DDEC /* SignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTabView.swift; sourceTree = "<group>"; };
+		257D935C2A528EF40047DDEC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		25A25C782A50C23E00FEFDED /* MovieNightPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieNightPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNightPlannerApp.swift; sourceTree = "<group>"; };
 		25A25C7D2A50C23E00FEFDED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25A25C7F2A50C23F00FEFDED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		25EE718D2A5152C800B790BB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		25EE718F2A5152FE00B790BB /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
+		25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScrollBackgroundView.swift; sourceTree = "<group>"; };
+		25EE71982A51AE6200B790BB /* MoviePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterView.swift; sourceTree = "<group>"; };
+		45F8251BBB09A505B3048874 /* Pods_MovieNightPlanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieNightPlanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EE2D5F19F741C77C6B45854 /* Pods-MovieNightPlanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieNightPlanner.release.xcconfig"; path = "Target Support Files/Pods-MovieNightPlanner/Pods-MovieNightPlanner.release.xcconfig"; sourceTree = "<group>"; };
+		74AE4185B387BF28F266829A /* Pods-MovieNightPlanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieNightPlanner.debug.xcconfig"; path = "Target Support Files/Pods-MovieNightPlanner/Pods-MovieNightPlanner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +46,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EDBD6ED30C2AE7C79D7253C /* Pods_MovieNightPlanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		257D93572A528D6C0047DDEC /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				25A25C7D2A50C23E00FEFDED /* ContentView.swift */,
+				257D93582A528D810047DDEC /* LoginTabView.swift */,
+				257D935A2A528E3D0047DDEC /* SignUpTabView.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
 		25A25C6F2A50C23E00FEFDED = {
 			isa = PBXGroup;
 			children = (
 				25A25C7A2A50C23E00FEFDED /* MovieNightPlanner */,
 				25A25C792A50C23E00FEFDED /* Products */,
+				B984043397442A4F922B6457 /* Pods */,
+				5734C7BE87A66725DFE8A84A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +84,10 @@
 		25A25C7A2A50C23E00FEFDED /* MovieNightPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */,
-				25A25C7D2A50C23E00FEFDED /* ContentView.swift */,
+				25EE71932A515D1700B790BB /* Core */,
+				25EE71922A515D0900B790BB /* Views */,
+				25EE71952A51848100B790BB /* Components */,
+				25EE71942A515D2500B790BB /* Utils */,
 				25A25C7F2A50C23F00FEFDED /* Assets.xcassets */,
 				25A25C812A50C23F00FEFDED /* Preview Content */,
 			);
@@ -67,6 +102,59 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		25EE71922A515D0900B790BB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				257D93572A528D6C0047DDEC /* LoginScreen */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		25EE71932A515D1700B790BB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */,
+				25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		25EE71942A515D2500B790BB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				25EE718F2A5152FE00B790BB /* Blur.swift */,
+				25EE718D2A5152C800B790BB /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		25EE71952A51848100B790BB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */,
+				25EE71982A51AE6200B790BB /* MoviePosterView.swift */,
+				257D935C2A528EF40047DDEC /* CustomTextField.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5734C7BE87A66725DFE8A84A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45F8251BBB09A505B3048874 /* Pods_MovieNightPlanner.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B984043397442A4F922B6457 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				74AE4185B387BF28F266829A /* Pods-MovieNightPlanner.debug.xcconfig */,
+				6EE2D5F19F741C77C6B45854 /* Pods-MovieNightPlanner.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +162,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25A25C862A50C23F00FEFDED /* Build configuration list for PBXNativeTarget "MovieNightPlanner" */;
 			buildPhases = (
+				8BFD2F76D66C3A03ACD6069E /* [CP] Check Pods Manifest.lock */,
 				25A25C742A50C23E00FEFDED /* Sources */,
 				25A25C752A50C23E00FEFDED /* Frameworks */,
 				25A25C762A50C23E00FEFDED /* Resources */,
+				A10F4E15F4BB9E9F9A20E0DF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,10 +217,53 @@
 			files = (
 				25A25C832A50C23F00FEFDED /* Preview Assets.xcassets in Resources */,
 				25A25C802A50C23F00FEFDED /* Assets.xcassets in Resources */,
+				25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8BFD2F76D66C3A03ACD6069E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MovieNightPlanner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A10F4E15F4BB9E9F9A20E0DF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MovieNightPlanner/Pods-MovieNightPlanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MovieNightPlanner/Pods-MovieNightPlanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MovieNightPlanner/Pods-MovieNightPlanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25A25C742A50C23E00FEFDED /* Sources */ = {
@@ -138,7 +271,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A25C7E2A50C23E00FEFDED /* ContentView.swift in Sources */,
+				25EE718E2A5152C800B790BB /* Extensions.swift in Sources */,
+				25EE71902A5152FE00B790BB /* Blur.swift in Sources */,
+				257D93592A528D810047DDEC /* LoginTabView.swift in Sources */,
 				25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */,
+				25EE71992A51AE6200B790BB /* MoviePosterView.swift in Sources */,
+				257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */,
+				25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */,
+				257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +401,7 @@
 		};
 		25A25C872A50C23F00FEFDED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74AE4185B387BF28F266829A /* Pods-MovieNightPlanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -290,6 +431,7 @@
 		};
 		25A25C882A50C23F00FEFDED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EE2D5F19F741C77C6B45854 /* Pods-MovieNightPlanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
