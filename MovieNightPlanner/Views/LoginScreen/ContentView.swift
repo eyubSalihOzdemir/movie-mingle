@@ -36,6 +36,17 @@ struct ContentView: View {
             }
         }
         .ignoresSafeArea(edges: .bottom)
+        .onAppear {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    print("User signed in!")
+                    // navigate to other screen with user information
+                } else {
+                    print("User is NOT signed in!")
+                    //
+                }
+            }
+        }
     }
 }
 
