@@ -10,5 +10,6 @@ target 'MovieNightPlanner' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Core'
 	pod ‘Firebase/Database’
+	pod 'lottie-ios'
 
 end

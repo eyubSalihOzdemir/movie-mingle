@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		251C77DC2A558AEA00D36462 /* loading_alternate.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 251C77DB2A558AE900D36462 /* loading_alternate.lottie */; };
 		257D93592A528D810047DDEC /* LoginTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D93582A528D810047DDEC /* LoginTabView.swift */; };
 		257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935A2A528E3D0047DDEC /* SignUpTabView.swift */; };
 		257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935C2A528EF40047DDEC /* CustomTextField.swift */; };
+		258703812A549444000A0218 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258703802A549444000A0218 /* LottieView.swift */; };
+		258703832A549C46000A0218 /* loading.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 258703822A549C46000A0218 /* loading.lottie */; };
 		259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259483BE2A54513F00152705 /* LoginViewModel.swift */; };
 		25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */; };
 		25A25C7E2A50C23E00FEFDED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A25C7D2A50C23E00FEFDED /* ContentView.swift */; };
@@ -24,9 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		251C77DB2A558AE900D36462 /* loading_alternate.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading_alternate.lottie; sourceTree = "<group>"; };
 		257D93582A528D810047DDEC /* LoginTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTabView.swift; sourceTree = "<group>"; };
 		257D935A2A528E3D0047DDEC /* SignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTabView.swift; sourceTree = "<group>"; };
 		257D935C2A528EF40047DDEC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		258703802A549444000A0218 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		258703822A549C46000A0218 /* loading.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading.lottie; sourceTree = "<group>"; };
 		259483BE2A54513F00152705 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		25A25C782A50C23E00FEFDED /* MovieNightPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieNightPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A25C7B2A50C23E00FEFDED /* MovieNightPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNightPlannerApp.swift; sourceTree = "<group>"; };
@@ -65,6 +71,15 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
+		2587037B2A5493E5000A0218 /* Lottie Files */ = {
+			isa = PBXGroup;
+			children = (
+				251C77DB2A558AE900D36462 /* loading_alternate.lottie */,
+				258703822A549C46000A0218 /* loading.lottie */,
+			);
+			path = "Lottie Files";
+			sourceTree = "<group>";
+		};
 		259483BD2A54512900152705 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +114,7 @@
 				259483BD2A54512900152705 /* ViewModels */,
 				25EE71952A51848100B790BB /* Components */,
 				25EE71942A515D2500B790BB /* Utils */,
+				2587037B2A5493E5000A0218 /* Lottie Files */,
 				25A25C7F2A50C23F00FEFDED /* Assets.xcassets */,
 				25A25C812A50C23F00FEFDED /* Preview Content */,
 			);
@@ -142,6 +158,7 @@
 		25EE71952A51848100B790BB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				258703802A549444000A0218 /* LottieView.swift */,
 				25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */,
 				25EE71982A51AE6200B790BB /* MoviePosterView.swift */,
 				257D935C2A528EF40047DDEC /* CustomTextField.swift */,
@@ -228,7 +245,9 @@
 			files = (
 				25A25C832A50C23F00FEFDED /* Preview Assets.xcassets in Resources */,
 				25A25C802A50C23F00FEFDED /* Assets.xcassets in Resources */,
+				258703832A549C46000A0218 /* loading.lottie in Resources */,
 				25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */,
+				251C77DC2A558AEA00D36462 /* loading_alternate.lottie in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +309,7 @@
 				257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */,
 				25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */,
 				259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */,
+				258703812A549444000A0218 /* LottieView.swift in Sources */,
 				257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

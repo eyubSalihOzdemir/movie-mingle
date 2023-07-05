@@ -39,13 +39,29 @@ struct ContentView: View {
         .onAppear {
             Auth.auth().addStateDidChangeListener { auth, user in
                 if user != nil {
-                    print("User signed in!")
+                    //print("User signed in!")
                     // navigate to other screen with user information
                 } else {
-                    print("User is NOT signed in!")
+                    //print("User is NOT signed in!")
                     //
                 }
             }
+        }
+        .overlay {
+            ZStack(alignment: .center) {
+                Color.clear
+                    .background(.ultraThinMaterial)
+                    .ignoresSafeArea()
+                
+                RoundedRectangle(cornerRadius: 60)
+                    .fill(LinearGradient(colors: [Color(hex: "9C3FE4"), Color(hex: "C65647")], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(width: 200, height: 200)
+                
+                LottieView(name: "loading_alternate", playing: $loginViewModel.loading)
+                    .frame(width: 120, height: 120)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .opacity(loginViewModel.loading ? 1 : 0)
         }
     }
 }

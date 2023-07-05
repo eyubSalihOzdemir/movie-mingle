@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import SwiftUI
 
 @MainActor class LoginViewModel: ObservableObject {
     @Published var loading = false
@@ -22,43 +23,57 @@ import FirebaseAuth
     }
     
     func signIn() {
-        loading = true
-        
-        Auth.auth().signIn(withEmail: "test123@gmail.com", password: "test123") { [weak self] authResult, error in
-            guard self != nil else { return }
-            
-            if authResult != nil {
-                print("Successfully signed in!")
-                //
+        if !loading {
+            withAnimation {
+                loading = true
             }
             
-            if let error = error {
-                print("There was an error during login!")
-                print(error.localizedDescription)
+            Auth.auth().signIn(withEmail: "test123@gmail.com", password: "test123") { [weak self] authResult, error in
+                guard self != nil else { return }
+                
+                if authResult != nil {
+                    print("Successfully signed in!")
+                    //
+                }
+                
+                if let error = error {
+                    print("There was an error during login!")
+                    print(error.localizedDescription)
+                    //
+                }
+                
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                    self?.loading = false
+                }
             }
         }
-        
-        loading = false
     }
     
     func signUp() {
-        loading = true
-        
-        print("SingUp function fired!")
-        
-        Auth.auth().createUser(withEmail: "test12345@gmail.com", password: "test12345") { authResult, error in
-            if authResult != nil {
-                print("Successfully signed up!")
-                //
+        if !loading {
+            withAnimation {
+                loading = true
             }
             
-            if let error = error {
-                print("There was an error during sign up!")
-                print(error.localizedDescription)
+            print("SingUp function fired!")
+            
+            Auth.auth().createUser(withEmail: "test12345@gmail.com", password: "test12345") { authResult, error in
+                if authResult != nil {
+                    print("Successfully signed up!")
+                    //
+                }
+                
+                if let error = error {
+                    print("There was an error during sign up!")
+                    print(error.localizedDescription)
+                    //
+                }
+                
+                withAnimation {
+                    self.loading = false
+                }
             }
         }
-        
-        loading = false
     }
     
     func forgotPassword() {
@@ -66,10 +81,14 @@ import FirebaseAuth
     }
     
     func signOut() {
+        loading = true
+        
         do {
           try Auth.auth().signOut()
         } catch let signOutError as NSError {
           print("Error signing out: %@", signOutError)
         }
+        
+        loading = false
     }
 }
