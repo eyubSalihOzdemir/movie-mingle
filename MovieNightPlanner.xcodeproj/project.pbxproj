@@ -19,6 +19,7 @@
 		25A25C802A50C23F00FEFDED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C7F2A50C23F00FEFDED /* Assets.xcassets */; };
 		25A25C832A50C23F00FEFDED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */; };
 		25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */; };
+		25AC4F562A55CD6A00152AF2 /* Fooview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F552A55CD6A00152AF2 /* Fooview.swift */; };
 		25EE718E2A5152C800B790BB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718D2A5152C800B790BB /* Extensions.swift */; };
 		25EE71902A5152FE00B790BB /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718F2A5152FE00B790BB /* Blur.swift */; };
 		25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */; };
@@ -40,6 +41,7 @@
 		25A25C7F2A50C23F00FEFDED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		25AC4F552A55CD6A00152AF2 /* Fooview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fooview.swift; sourceTree = "<group>"; };
 		25EE718D2A5152C800B790BB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		25EE718F2A5152FE00B790BB /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScrollBackgroundView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				257D93572A528D6C0047DDEC /* LoginScreen */,
+				25AC4F552A55CD6A00152AF2 /* Fooview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */,
 				258703812A549444000A0218 /* LottieView.swift in Sources */,
 				257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */,
+				25AC4F562A55CD6A00152AF2 /* Fooview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

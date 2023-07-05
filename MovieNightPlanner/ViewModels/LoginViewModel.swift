@@ -18,6 +18,8 @@ import SwiftUI
     @Published var password = ""
     @Published var username = ""
     
+    @Published var signedIn = false
+    
     init() {
         print("LoginViewModel initialized.")
     }
@@ -34,6 +36,7 @@ import SwiftUI
                 if authResult != nil {
                     print("Successfully signed in!")
                     //
+                    self?.signedIn = true
                 }
                 
                 if let error = error {
