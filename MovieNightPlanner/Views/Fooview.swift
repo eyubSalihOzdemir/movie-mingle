@@ -8,13 +8,26 @@
 import SwiftUI
 
 struct Fooview: View {
+    @ObservedObject var loginViewModel: LoginViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Button {
+                loginViewModel.signOut()
+            } label: {
+                Text("Sign out")
+            }
+            .foregroundColor(.white)
+            .font(.headline.weight(.semibold))
+            .frame(width: 250, height: 60)
+            .background(.purple)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
     }
 }
 
 struct Fooview_Previews: PreviewProvider {
     static var previews: some View {
-        Fooview()
+        Fooview(loginViewModel: LoginViewModel())
     }
 }

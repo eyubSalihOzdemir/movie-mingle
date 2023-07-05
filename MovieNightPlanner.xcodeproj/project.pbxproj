@@ -20,6 +20,7 @@
 		25A25C832A50C23F00FEFDED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */; };
 		25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */; };
 		25AC4F562A55CD6A00152AF2 /* Fooview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F552A55CD6A00152AF2 /* Fooview.swift */; };
+		25AC4F582A55D42F00152AF2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F572A55D42F00152AF2 /* WelcomeView.swift */; };
 		25EE718E2A5152C800B790BB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718D2A5152C800B790BB /* Extensions.swift */; };
 		25EE71902A5152FE00B790BB /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718F2A5152FE00B790BB /* Blur.swift */; };
 		25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */; };
@@ -42,6 +43,8 @@
 		25A25C822A50C23F00FEFDED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25AC4F552A55CD6A00152AF2 /* Fooview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fooview.swift; sourceTree = "<group>"; };
+		25AC4F572A55D42F00152AF2 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		25AC4F5B2A55E9DD00152AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		25EE718D2A5152C800B790BB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		25EE718F2A5152FE00B790BB /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScrollBackgroundView.swift; sourceTree = "<group>"; };
@@ -66,7 +69,7 @@
 		257D93572A528D6C0047DDEC /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
-				25A25C7D2A50C23E00FEFDED /* ContentView.swift */,
+				25AC4F572A55D42F00152AF2 /* WelcomeView.swift */,
 				257D93582A528D810047DDEC /* LoginTabView.swift */,
 				257D935A2A528E3D0047DDEC /* SignUpTabView.swift */,
 			);
@@ -111,6 +114,7 @@
 		25A25C7A2A50C23E00FEFDED /* MovieNightPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				25AC4F5B2A55E9DD00152AF2 /* Info.plist */,
 				25EE71932A515D1700B790BB /* Core */,
 				25EE71922A515D0900B790BB /* Views */,
 				259483BD2A54512900152705 /* ViewModels */,
@@ -134,8 +138,9 @@
 		25EE71922A515D0900B790BB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				257D93572A528D6C0047DDEC /* LoginScreen */,
+				25A25C7D2A50C23E00FEFDED /* ContentView.swift */,
 				25AC4F552A55CD6A00152AF2 /* Fooview.swift */,
+				257D93572A528D6C0047DDEC /* LoginScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */,
 				25EE71992A51AE6200B790BB /* MoviePosterView.swift in Sources */,
 				257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */,
+				25AC4F582A55D42F00152AF2 /* WelcomeView.swift in Sources */,
 				25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */,
 				259483BF2A54513F00152705 /* LoginViewModel.swift in Sources */,
 				258703812A549444000A0218 /* LottieView.swift in Sources */,
@@ -447,9 +453,9 @@
 				DEVELOPMENT_TEAM = K259F5W9P5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieNightPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -477,9 +483,9 @@
 				DEVELOPMENT_TEAM = K259F5W9P5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MovieNightPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
