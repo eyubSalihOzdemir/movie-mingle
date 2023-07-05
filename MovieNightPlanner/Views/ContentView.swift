@@ -11,8 +11,6 @@ import FirebaseAuth
 struct ContentView: View {
     @StateObject var loginViewModel = LoginViewModel()
     
-    @State private var isActive = false
-    
     var body: some View {
         Group {
             if loginViewModel.user != nil {
