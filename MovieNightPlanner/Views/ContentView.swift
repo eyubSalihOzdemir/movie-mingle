@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if loginViewModel.user != nil {
-                Fooview(loginViewModel: loginViewModel)
+                HomeTabView(loginViewModel: loginViewModel)
             } else {
                 WelcomeView(loginViewModel: loginViewModel)
             }
@@ -25,5 +25,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
