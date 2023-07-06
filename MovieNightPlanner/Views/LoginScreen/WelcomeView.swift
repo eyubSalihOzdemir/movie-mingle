@@ -50,7 +50,7 @@ struct WelcomeView: View {
                         .fill(LinearGradient(colors: [Color(hex: "9C3FE4"), Color(hex: "C65647")], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .frame(width: 200, height: 200)
                     
-                    LottieView(name: "loading_alternate", playing: $loginViewModel.loading)
+                    LottieView(lottieAnimation: .loading, playing: $loginViewModel.loading)
                         .frame(width: 120, height: 120)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

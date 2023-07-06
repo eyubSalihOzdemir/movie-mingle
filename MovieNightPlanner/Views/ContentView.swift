@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if loginViewModel.user != nil {
-                HomeTabView(loginViewModel: loginViewModel)
+                TabView(loginViewModel: loginViewModel)
             } else {
                 WelcomeView(loginViewModel: loginViewModel)
             }

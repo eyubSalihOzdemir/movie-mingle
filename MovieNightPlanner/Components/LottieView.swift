@@ -8,8 +8,12 @@
 import SwiftUI
 import Lottie
 
+enum LottieAnimation: String {
+    case loading = "loading"
+}
+
 struct LottieView: UIViewRepresentable {
-    var name: String
+    var lottieAnimation: LottieAnimation
     @Binding var playing: Bool
     
     let animationView = LottieAnimationView()
@@ -25,7 +29,7 @@ struct LottieView: UIViewRepresentable {
             animationView.heightAnchor.constraint(equalTo: uiView.heightAnchor)
         ])
         
-        DotLottieFile.loadedFrom(url: Bundle.main.url(forResource: name, withExtension: "lottie")!) { result in
+        DotLottieFile.loadedFrom(url: Bundle.main.url(forResource: lottieAnimation.rawValue, withExtension: "lottie")!) { result in
             switch result {
             case .success(let success):
                 animationView.loadAnimation(from: success)

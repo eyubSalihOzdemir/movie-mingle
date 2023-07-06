@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeTabView: View {
+struct TabView: View {
     @ObservedObject var loginViewModel: LoginViewModel
     
     @State private var selectedTab: Tab = .events
@@ -70,9 +70,9 @@ struct HomeTabView: View {
     }
 }
 
-struct HomeTabView_Previews: PreviewProvider {
+struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTabView(loginViewModel: LoginViewModel())
+        TabView(loginViewModel: LoginViewModel())
             .preferredColorScheme(.dark)
     }
 }
