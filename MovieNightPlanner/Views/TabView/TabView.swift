@@ -26,7 +26,6 @@ struct TabView: View {
                     ProfileView()
                         .padding(.bottom, 100)
                 }
-                    
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.red)
@@ -36,7 +35,9 @@ struct TabView: View {
                     TabItemView(title: tabItem.title, icon: tabItem.icon)
                         .frame(maxWidth: .infinity)
                         .onTapGesture {
-                            selectedTab = tabItem.tab
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                selectedTab = tabItem.tab
+                            }
                         }
                         .foregroundStyle(
                             selectedTab == tabItem.tab ? .primary : .secondary
@@ -47,6 +48,23 @@ struct TabView: View {
             .padding(.top, 14)
             .frame(height: 88, alignment: .top)
             .background(.ultraThinMaterial)
+            .background(
+                HStack {
+                    if selectedTab == .movies { Spacer() }
+                    if selectedTab == .profile {
+                        Spacer()
+                        Spacer()
+                    }
+                    Circle().fill(Color.primary).frame(width: 100, height: 80).opacity(0.8)
+                    if selectedTab == .movies { Spacer() }
+                    if selectedTab == .events {
+                        Spacer()
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal, 16)
+                .frame(alignment: .center)
+            )
             .cornerRadius(40, corners: [.topLeft, .topRight])
         }
         .ignoresSafeArea(edges: [.bottom])
