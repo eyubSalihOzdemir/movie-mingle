@@ -17,11 +17,10 @@ struct TabItem: Identifiable {
     var title: String
     var icon: String
     var tab: Tab
-    var color: Color
 }
 
 var tabItems = [
-    TabItem(title: "Events", icon: "calendar", tab: .events, color: .primary),
-    TabItem(title: "Movies", icon: "movieclipper", tab: .movies, color: .primary),
-    TabItem(title: "Profile", icon: "person", tab: .profile, color: .primary)
+    TabItem(title: "Events", icon: "calendar", tab: .events),
+    TabItem(title: "Movies", icon: "film.stack", tab: .movies),
+    TabItem(title: "Profile", icon: "person", tab: .profile)
 ]
