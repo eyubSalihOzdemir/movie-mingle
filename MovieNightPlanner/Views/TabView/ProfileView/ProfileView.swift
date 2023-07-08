@@ -8,18 +8,33 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @ObservedObject var loginViewModel: LoginViewModel
+    
     var body: some View {
-        VStack {
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 100, height: 100)
+        ZStack {
             
-            Spacer()
+            VStack {
+                CustomNavigationBar(title: "Profile") {
+                    NavigationLink {
+                        // settings screen
+                    } label: {
+                        NavigationBarIcon(icon: "gearshape")
+                    }
+                    .buttonStyle(.plain)
+                }
+                
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: 100, height: 100)
+                
+                Spacer()
+            }
         }
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(loginViewModel: LoginViewModel())
+            .preferredColorScheme(.light)
     }
 }

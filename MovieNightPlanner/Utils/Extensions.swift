@@ -13,7 +13,7 @@ extension View {
             .background(Blur(radius: radius, opaque: opaque))
     }
 }
-
+///
 extension View {
     func innerShadow<S: Shape, SS: ShapeStyle>(shape: S, color: SS, lineWidth: CGFloat = 1, offsetX: CGFloat = 0, offsetY: CGFloat = 0, blur: CGFloat = 4, blendMode: BlendMode = .normal, opacity: Double = 1) -> some View {
         return self
@@ -28,7 +28,7 @@ extension View {
             }
     }
 }
-
+///
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -55,7 +55,7 @@ extension Color {
         )
     }
 }
-
+///
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
@@ -70,3 +70,4 @@ extension View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
 }
+///
