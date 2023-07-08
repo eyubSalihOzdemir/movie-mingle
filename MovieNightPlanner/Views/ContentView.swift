@@ -9,14 +9,14 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var loginViewModel = LoginViewModel()
+    @StateObject var userViewModel = UserViewModel()
     
     var body: some View {
         Group {
-            if loginViewModel.user != nil {
-                TabView(loginViewModel: loginViewModel)
+            if userViewModel.user != nil {
+                TabView(userViewModel: userViewModel)
             } else {
-                WelcomeView(loginViewModel: loginViewModel)
+                WelcomeView(userViewModel: userViewModel)
             }
         }
     }

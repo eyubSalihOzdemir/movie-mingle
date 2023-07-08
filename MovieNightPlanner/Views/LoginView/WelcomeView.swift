@@ -11,7 +11,7 @@ import FirebaseAuth
 struct WelcomeView: View {
     @Namespace var namespace
     
-    @ObservedObject var loginViewModel: LoginViewModel
+    @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
         NavigationView {
@@ -28,17 +28,17 @@ struct WelcomeView: View {
                 }
                 .ignoresSafeArea()
                 
-                if loginViewModel.isShowingLoginTab {
-                    LoginTabView(loginViewModel: loginViewModel, namespace: namespace)
+                if userViewModel.isShowingLoginTab {
+                    LoginTabView(userViewModel: userViewModel, namespace: namespace)
                         .zIndex(1)
                 } else {
-                    SignUpTabView(loginViewModel: loginViewModel, namespace: namespace)
+                    SignUpTabView(userViewModel: userViewModel, namespace: namespace)
                         .zIndex(2)
                 }
             }
             .ignoresSafeArea(edges: .bottom)
             .onAppear {
-                loginViewModel.listenToAuthState()
+                userViewModel.listenToAuthState()
             }
             .overlay {
                 ZStack(alignment: .center) {
@@ -50,11 +50,11 @@ struct WelcomeView: View {
                         .fill(LinearGradient(colors: [Color(hex: "9C3FE4"), Color(hex: "C65647")], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .frame(width: 200, height: 200)
                     
-                    LottieView(lottieAnimation: .loading, playing: $loginViewModel.loading)
+                    LottieView(lottieAnimation: .loading, playing: $userViewModel.loading)
                         .frame(width: 120, height: 120)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .opacity(loginViewModel.loading ? 1 : 0)
+                .opacity(userViewModel.loading ? 1 : 0)
             }
         }
     }
@@ -62,22 +62,22 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView(loginViewModel: LoginViewModel())
+        WelcomeView(userViewModel: UserViewModel())
             .preferredColorScheme(.dark)
             .previewDevice("iPhone 14")
             .previewDisplayName("iPhone 14")
             
-        WelcomeView(loginViewModel: LoginViewModel())
+        WelcomeView(userViewModel: UserViewModel())
             .preferredColorScheme(.dark)
             .previewDevice("iPhone 11")
             .previewDisplayName("iPhone 11")
         
-        WelcomeView(loginViewModel: LoginViewModel())
+        WelcomeView(userViewModel: UserViewModel())
             .preferredColorScheme(.dark)
             .previewDevice("iPhone 8")
             .previewDisplayName("iPhone 8")
         
-        WelcomeView(loginViewModel: LoginViewModel())
+        WelcomeView(userViewModel: UserViewModel())
             .preferredColorScheme(.dark)
             .previewDevice("iPhone SE (3rd generation)")
             .previewDisplayName("iPhone SE (3rd generation)")

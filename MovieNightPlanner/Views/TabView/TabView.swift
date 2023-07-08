@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabView: View {
-    @ObservedObject var loginViewModel: LoginViewModel
+    @ObservedObject var userViewModel: UserViewModel
     
     @State private var selectedTab: Tab = .events
     
@@ -27,7 +27,7 @@ struct TabView: View {
                         MoviesView()
                             .ignoresSafeArea(edges: [.bottom])
                     case .profile:
-                        ProfileView(loginViewModel: loginViewModel)
+                        ProfileView(userViewModel: userViewModel)
                             .padding(.bottom, 100)
                     }
                 }
@@ -78,7 +78,7 @@ struct TabView: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        TabView(loginViewModel: LoginViewModel())
+        TabView(userViewModel: UserViewModel())
             .preferredColorScheme(.dark)
     }
 }
