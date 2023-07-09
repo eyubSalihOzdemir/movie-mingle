@@ -9,11 +9,19 @@ import SwiftUI
 
 struct MoviesView: View {
     var body: some View {
-        ScrollView {
-            ForEach(0..<20, id: \.self) { movie in
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(width: 100, height: 100)
+        ZStack(alignment: .top) {
+            ScrollView {
+                Color.clear
+                    .frame(height: 60)
+                
+                ForEach(0..<20, id: \.self) { movie in
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 100, height: 100)
+                }
             }
+            //.padding(.top, 60)
+            
+            CustomNavigationBar(title: "Movies") { }
         }
     }
 }

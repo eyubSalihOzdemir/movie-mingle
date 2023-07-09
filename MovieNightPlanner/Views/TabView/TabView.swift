@@ -73,6 +73,7 @@ struct TabView: View {
             }
             .ignoresSafeArea(edges: [.bottom])
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

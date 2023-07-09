@@ -37,9 +37,6 @@ struct WelcomeView: View {
                 }
             }
             .ignoresSafeArea(edges: .bottom)
-            .onAppear {
-                userViewModel.listenToAuthState()
-            }
             .overlay {
                 ZStack(alignment: .center) {
                     Color.clear
