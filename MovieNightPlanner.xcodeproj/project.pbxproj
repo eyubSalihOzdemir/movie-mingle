@@ -27,6 +27,7 @@
 		25A25C8A2A50C2AA00FEFDED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25A25C892A50C2AA00FEFDED /* GoogleService-Info.plist */; };
 		25AC4F562A55CD6A00152AF2 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F552A55CD6A00152AF2 /* TabView.swift */; };
 		25AC4F582A55D42F00152AF2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F572A55D42F00152AF2 /* WelcomeView.swift */; };
+		25CCB7E52A5AAE0700FBA93F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */; };
 		25DDC6602A56F4B1006C43BD /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DDC65F2A56F4B1006C43BD /* Tabs.swift */; };
 		25EE718E2A5152C800B790BB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718D2A5152C800B790BB /* Extensions.swift */; };
 		25EE71902A5152FE00B790BB /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EE718F2A5152FE00B790BB /* Blur.swift */; };
@@ -58,6 +59,7 @@
 		25AC4F552A55CD6A00152AF2 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		25AC4F572A55D42F00152AF2 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		25AC4F5B2A55E9DD00152AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		25DDC65F2A56F4B1006C43BD /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		25EE718D2A5152C800B790BB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		25EE718F2A5152FE00B790BB /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				259483BE2A54513F00152705 /* UserViewModel.swift */,
+				25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -170,10 +173,10 @@
 		25A25C7A2A50C23E00FEFDED /* MovieNightPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				251187402A59CC8B00D24597 /* Models */,
 				25AC4F5B2A55E9DD00152AF2 /* Info.plist */,
 				25EE71932A515D1700B790BB /* Core */,
 				25EE71922A515D0900B790BB /* Views */,
+				251187402A59CC8B00D24597 /* Models */,
 				259483BD2A54512900152705 /* ViewModels */,
 				25EE71952A51848100B790BB /* Components */,
 				25EE71942A515D2500B790BB /* Utils */,
@@ -386,6 +389,7 @@
 				2568CE902A576D3500AC5571 /* EventsView.swift in Sources */,
 				251187392A59375E00D24597 /* NavigationBarIcon.swift in Sources */,
 				251187372A59373D00D24597 /* CustomNavigationBar.swift in Sources */,
+				25CCB7E52A5AAE0700FBA93F /* ProfileViewModel.swift in Sources */,
 				258703812A549444000A0218 /* LottieView.swift in Sources */,
 				257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */,
 				25AC4F562A55CD6A00152AF2 /* TabView.swift in Sources */,

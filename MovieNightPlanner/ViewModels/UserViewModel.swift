@@ -22,6 +22,8 @@ import SwiftUI
     
     @Published var signedIn = false
     
+    @Published var currentUser: User? = nil
+    
     var user: FirebaseAuth.User? {
         didSet {
             objectWillChange.send()
@@ -40,7 +42,21 @@ import SwiftUI
                 return
             }
             
-            self.user = user
+            if let user = user {
+                if(self.user != user) {
+                    self.user = user
+                    
+                    if let timeInterval = user.metadata.creationDate?.timeIntervalSinceNow {
+                        /// means only get the user info if the user is not signed up in the last 10 seconds
+                        /// when sign ups, the currentUser info is already saved, so this is to prevent redundancy
+                        if !(timeInterval > -10) {
+                            self.getUserFromDatabase(uid: user.uid)
+                        }
+                    }
+                }
+            } else {
+                self.user = nil
+            }
         }
     }
     
@@ -56,7 +72,7 @@ import SwiftUI
                 
                 if authResult != nil {
                     print("Successfully signed in!")
-                    //
+                    
                     self?.signedIn = true
                 }
                 
@@ -103,19 +119,15 @@ import SwiftUI
                     print("Username doesn't exist!")
                     Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
                         if authResult != nil {
-                            print("Successfully signed up!")
-                            
-                            /// Updates the user displayName from username
+                            /// Updates the user's Ffirebase.displayName from username
                             self.updateUsername()
                             
-                            ///Create a User model
-                            let randomInt = Int.random(in: 1..<79)
-                            let newUser = User(id: authResult!.user.uid, username: self.username, avatar: String(format: "%03d", randomInt), events: nil, favoriteMovies: nil, friends: nil)
-                            if let encoded = try? JSONEncoder().encode(newUser) {
-                                print("\(String(data: encoded, encoding: .utf8)!)")
-                            }
+                            /// Upload newly signed up user info to database
+                            self.avatar = String(format: "%03d", Int.random(in: 1..<79))
+                            self.currentUser = User(username: self.username, avatar: self.avatar, events: nil, favoriteMovies: nil, friends: nil)
+                            self.uploadUserToDatabase(user: self.currentUser!, id: authResult!.user.uid)
                             
-                            //todo: and then create a databse node for the new user
+                            print("Successfully signed up!")
                         }
                         
                         if let error = error {
@@ -133,6 +145,45 @@ import SwiftUI
         }
     }
     
+    // MARK: Upload user to database
+    func uploadUserToDatabase(user: User, id: String) {
+        if let encoded = try? JSONEncoder().encode(user) {
+            let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference()//.child("users")
+            //guard let key = ref.child(newUser.id).key else { return }
+            guard let key = ref.child(id).key else { return }
+            do {
+                let jsonDict = try JSONSerialization.jsonObject(with: encoded)
+                let childUpdates = ["/users/\(key)": jsonDict]
+                ref.updateChildValues(childUpdates)
+                print("Succesfully added new user info to the database")
+            } catch let error {
+                print("Error! Couldn't convert JSON to Dictionary")
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    // MARK: Get user information from database and save to "currentUser"
+    func getUserFromDatabase(uid: String) {
+        let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference().child("users/\(uid)")
+        ref.getData { error, snapshot in
+            guard error == nil else {
+                print("\(error!.localizedDescription)")
+                return
+            }
+            
+            if let data = try? JSONSerialization.data(withJSONObject: snapshot?.value) {
+                if let decoded = try? JSONDecoder().decode(User.self, from: data) {
+                    self.currentUser = decoded
+                } else {
+                    print("Error! Couldn't read database snapshot")
+                }
+            }
+        }
+        
+    }
+    
+    // MARK: Update Username
     func updateUsername() {
         let changeRequest = self.user?.createProfileChangeRequest()
         changeRequest?.displayName = self.username
@@ -154,9 +205,9 @@ import SwiftUI
         self.email = ""
         
         do {
-          try Auth.auth().signOut()
+            try Auth.auth().signOut()
         } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+            print("Error signing out: %@", signOutError)
         }
         
         self.loading = false
