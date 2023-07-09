@@ -10,8 +10,8 @@
 import Foundation
 
 // MARK: - User
-struct User: Identifiable, Codable {
-    let id: String
+struct User: Codable {
+    //let id: String
     let username: String
     let avatar: String
     let events: [Event]?
@@ -21,16 +21,15 @@ struct User: Identifiable, Codable {
 
 // MARK: - Event
 struct Event: Codable {
-    let id: String
+    let id: Bool
 }
 
 // MARK: - Movie
 struct Movie: Codable {
-    let id: String
+    let id: Bool
 }
 
 // MARK: - Friend
 struct Friend: Codable {
-    let id: String
     let nickname: String?
 }
