@@ -19,6 +19,9 @@ struct ContentView: View {
                 WelcomeView(userViewModel: userViewModel)
             }
         }
+        .onAppear {
+            userViewModel.listenToAuthState()
+        }
     }
 }
 
