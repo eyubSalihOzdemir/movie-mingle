@@ -15,7 +15,7 @@ struct ProfileView: View {
             VStack {
                 CustomNavigationBar(title: "Profile") {
                     NavigationLink {
-                        // settings screen
+                        //todo: navigate to settings screen
                     } label: {
                         NavigationBarIcon(icon: "gearshape")
                     }

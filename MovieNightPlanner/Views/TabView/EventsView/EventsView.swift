@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct EventsView: View {
+    @State private var navigationBarHidden = false
     var body: some View {
-        VStack {
-            Spacer()
+        ZStack(alignment: .top) {
+            CustomScrollView(navigationBarHidden: $navigationBarHidden) {
+                ForEach(0..<20, id: \.self) { movie in
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 100, height: 100)
+                }
+            }
             
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 100, height: 100)
+            CustomNavigationBar(title: "Events") {
+                NavigationLink {
+                    //todo: show a bottom sheet for event creation
+                } label: {
+                    NavigationBarIcon(icon: "plus")
+                }
+                .buttonStyle(.plain)
+            }
+            .offset(y: navigationBarHidden ? -100 : 0)
         }
     }
 }

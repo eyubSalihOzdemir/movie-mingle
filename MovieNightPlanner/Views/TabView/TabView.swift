@@ -22,7 +22,8 @@ struct TabView: View {
                     switch selectedTab {
                     case .events:
                         EventsView()
-                            .padding(.bottom, 100)
+                            //.padding(.bottom, 100)
+                            .ignoresSafeArea(edges: [.bottom])
                     case .movies:
                         MoviesView()
                             .ignoresSafeArea(edges: [.bottom])
