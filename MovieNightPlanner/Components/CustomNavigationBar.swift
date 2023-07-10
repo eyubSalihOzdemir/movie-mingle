@@ -41,8 +41,8 @@ struct CustomNavigationBar<Content: View>: View {
                 actions()
             }
         }
-        .frame(height: 60)
-        .padding(.horizontal, 20)
+        .frame(height: Constants.customNavBarHeight)
+        .padding(.horizontal, Constants.customNavBarHorizontalPadding)
     }
 }
 

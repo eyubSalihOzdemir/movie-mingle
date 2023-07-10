@@ -50,7 +50,7 @@ struct TabView: View {
                 }
                 .padding(.horizontal, 8)
                 .padding(.top, 14)
-                .frame(height: 88, alignment: .top)
+                .frame(height: Constants.customTabBarHeight, alignment: .top)
                 .background(.ultraThinMaterial)
                 .background(
                     HStack {
@@ -69,7 +69,7 @@ struct TabView: View {
                     .padding(.horizontal, 16)
                     .frame(alignment: .center)
                 )
-                .cornerRadius(40, corners: [.topLeft, .topRight])
+                .cornerRadius(Constants.customTabBarCornerRadius, corners: [.topLeft, .topRight])
             }
             .ignoresSafeArea(edges: [.bottom])
         }
