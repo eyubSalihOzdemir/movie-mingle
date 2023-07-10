@@ -32,7 +32,6 @@ struct TabView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                //.background(.red)
                 
                 HStack {
                     ForEach(tabItems) { tabItem in

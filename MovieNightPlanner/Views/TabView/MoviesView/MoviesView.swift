@@ -17,7 +17,7 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 
 struct MoviesView: View {
     @Namespace var scrollSpace
-    @State private var scrollOffset: CGFloat = 0
+    @State private var scrollOffset: CGFloat = .zero
     @State private var navigationBarHidden = false
     
     var body: some View {
@@ -43,22 +43,26 @@ struct MoviesView: View {
                 )
                 .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
                     if value > scrollOffset {
-                        print("Scroll UP")
-                        //withAnimation {
-                        //    navigationBarHidden = false
-                        //}
+                        /// scrolling up, don't show the nav bar if scroll offset is more than than 1350 points
+                        if value > -1350 {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                navigationBarHidden = false
+                            }
+                        }
                     } else {
-                        print("Scroll DOWN")
-                        //withAnimation {
-                        //    navigationBarHidden = true
-                        //}
+                        /// scrolling down, don't hide the nav bar if scroll offset is less than 200 points
+                        if value < -200 {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                navigationBarHidden = true
+                            }
+                        }
                     }
                     scrollOffset = value
                 }
             }
             .coordinateSpace(name: scrollSpace)
 
-            CustomNavigationBar(title: "\(scrollOffset)") { }
+            CustomNavigationBar(title: "Movies") { }
                 .offset(y: navigationBarHidden ? -100 : 0)
         }
     }
