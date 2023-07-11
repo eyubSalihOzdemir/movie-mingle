@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomScrollView<Content: View>: View {
     @Namespace private var scrollSpace
     @Binding var navigationBarHidden: Bool
+    var searchBar: Bool = false
     let content: () -> Content
     
     @State private var scrollOffset: CGFloat = .zero
@@ -18,7 +19,7 @@ struct CustomScrollView<Content: View>: View {
         ScrollView {
             Group {
                 Color.clear
-                    .frame(height: Constants.customNavBarHeight)
+                    .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHieght : Constants.customNavBarHeight)
                 
                 content()
                 

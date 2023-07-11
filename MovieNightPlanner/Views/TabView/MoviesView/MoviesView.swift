@@ -17,18 +17,23 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 
 struct MoviesView: View {
     @State private var navigationBarHidden = false
+    @State private var searchText = ""
     
     var body: some View {
         ZStack(alignment: .top) {
-            CustomScrollView(navigationBarHidden: $navigationBarHidden) {
+            CustomScrollView(navigationBarHidden: $navigationBarHidden, searchBar: true) {
                 ForEach(0..<20, id: \.self) { movie in
                     RoundedRectangle(cornerRadius: 20)
                         .frame(width: 100, height: 100)
                 }
             }
+            
+            //todo: add a search bar in a nice way and animate it's opening and closing states
 
-            CustomNavigationBar(title: "Movies") { }
-                .offset(y: navigationBarHidden ? -100 : 0)
+            CustomNavigationBar(title: "Movies", searchBar: true) {
+                
+            }.offset(y: navigationBarHidden ? -100 : 0)
+                
         }
     }
 }

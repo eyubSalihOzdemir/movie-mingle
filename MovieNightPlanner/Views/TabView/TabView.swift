@@ -9,8 +9,7 @@ import SwiftUI
 
 struct TabView: View {
     @ObservedObject var userViewModel: UserViewModel
-    
-    @State private var selectedTab: Tab = .events
+    @State private var selectedTab: Tab = .movies
     
     var body: some View {
         NavigationView {
@@ -39,9 +38,9 @@ struct TabView: View {
                         TabItemView(title: tabItem.title, icon: tabItem.icon)
                             .frame(maxWidth: .infinity)
                             .onTapGesture {
-                                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                //withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                                     selectedTab = tabItem.tab
-                                }
+                                //}
                             }
                             .foregroundStyle(
                                 selectedTab == tabItem.tab ? .primary : .secondary
