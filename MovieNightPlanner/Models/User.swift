@@ -14,22 +14,22 @@ struct User: Codable {
     //let id: String
     let username: String
     let avatar: String
-    let events: [Event]?
-    let favoriteMovies: [Movie]?
-    let friends: [Friend]?
+    let events: [UserEvent]?
+    let favoriteMovies: [UserMovie]?
+    let friends: [UserFriend]?
 }
 
 // MARK: - Event
-struct Event: Codable {
+struct UserEvent: Codable {
     let id: Bool
 }
 
 // MARK: - Movie
-struct Movie: Codable {
+struct UserMovie: Codable {
     let id: Bool
 }
 
 // MARK: - Friend
-struct Friend: Codable {
+struct UserFriend: Codable {
     let nickname: String?
 }
