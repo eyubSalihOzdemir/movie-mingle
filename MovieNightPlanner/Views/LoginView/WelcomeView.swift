@@ -60,22 +60,18 @@ struct WelcomeView: View {
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView(userViewModel: UserViewModel())
-            .preferredColorScheme(.dark)
             .previewDevice("iPhone 14")
             .previewDisplayName("iPhone 14")
             
         WelcomeView(userViewModel: UserViewModel())
-            .preferredColorScheme(.dark)
             .previewDevice("iPhone 11")
             .previewDisplayName("iPhone 11")
         
         WelcomeView(userViewModel: UserViewModel())
-            .preferredColorScheme(.dark)
             .previewDevice("iPhone 8")
             .previewDisplayName("iPhone 8")
         
         WelcomeView(userViewModel: UserViewModel())
-            .preferredColorScheme(.dark)
             .previewDevice("iPhone SE (3rd generation)")
             .previewDisplayName("iPhone SE (3rd generation)")
     }

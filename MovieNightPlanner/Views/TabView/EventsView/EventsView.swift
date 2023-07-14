@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EventsView: View {
     @State private var navigationBarHidden = false
+    
     var body: some View {
         ZStack(alignment: .top) {
             CustomScrollView(navigationBarHidden: $navigationBarHidden) {

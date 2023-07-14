@@ -97,6 +97,5 @@ struct LoginTabView_Previews: PreviewProvider {
     
     static var previews: some View {
         LoginTabView(userViewModel: UserViewModel(), namespace: namespace)
-            .preferredColorScheme(.dark)
     }
 }

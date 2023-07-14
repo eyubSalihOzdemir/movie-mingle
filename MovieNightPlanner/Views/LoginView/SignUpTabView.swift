@@ -98,6 +98,5 @@ struct SignUpTabView_Previews: PreviewProvider {
     
     static var previews: some View {
         SignUpTabView(userViewModel: UserViewModel(), namespace: namespace)
-            .preferredColorScheme(.dark)
     }
 }

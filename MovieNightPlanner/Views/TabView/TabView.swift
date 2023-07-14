@@ -13,8 +13,28 @@ struct TabView: View {
     
     var body: some View {
         NavigationView {
-            ZStack(alignment: .bottom) {
-                Color.indigo
+            SwiftUI.TabView {
+                EventsView()
+                    .tabItem {
+                        Label("Events", systemImage: "calendar")
+                    }
+                
+                MoviesView()
+                    .tabItem {
+                        Label("Movies", systemImage: "film.stack")
+                    }
+                
+                ProfileView(userViewModel: userViewModel)
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+            }
+            .onAppear() {
+                UITabBar.appearance().tintColor = UIColor.systemPink
+            }
+            
+            /*ZStack(alignment: .bottom) {
+                Color.clear
                     .ignoresSafeArea()
                 
                 Group {
@@ -71,6 +91,7 @@ struct TabView: View {
                 .cornerRadius(Constants.customTabBarCornerRadius, corners: [.topLeft, .topRight])
             }
             .ignoresSafeArea(edges: [.bottom])
+             */
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -79,6 +100,5 @@ struct TabView: View {
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
         TabView(userViewModel: UserViewModel())
-            .preferredColorScheme(.dark)
     }
 }

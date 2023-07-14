@@ -16,24 +16,59 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 }
 
 struct MoviesView: View {
-    @State private var navigationBarHidden = false
-    @State private var searchText = ""
+    @StateObject var moviesViewModel = MoviesViewModel()
     
     var body: some View {
         ZStack(alignment: .top) {
-            CustomScrollView(navigationBarHidden: $navigationBarHidden, searchBar: true) {
-                ForEach(0..<20, id: \.self) { movie in
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 100, height: 100)
+            Group {
+                if moviesViewModel.userDidNotSearchYet {
+                    VStack {
+                        Text("Search for movies")
+                    }
+                    .frame(maxHeight: .infinity)
+                } else {
+                    Group {
+                        if moviesViewModel.loading {
+                            VStack {
+                                ProgressView()
+                            }
+                            .frame(maxHeight: .infinity)
+                        } else {
+                            CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
+                                Group {
+                                    if moviesViewModel.movieSearchResults.results.isEmpty {
+                                        Text("No results")
+                                    } else {
+                                        LazyVGrid(columns: [GridItem(.flexible())]) {
+                                            ForEach(moviesViewModel.movieSearchResults.results) { result in
+                                                VStack {
+                                                    MovieCardView(title: result.title, originalTitle: result.originalTitle, releaseDate: result.releaseDate, originalLanguage: result.originalLanguage, posterPath: result.posterPath)
+                                                }
+                                            }
+                                            .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            
-            //todo: add a search bar in a nice way and animate it's opening and closing states
 
-            CustomNavigationBar(title: "Movies", searchBar: true) {
-                
-            }.offset(y: navigationBarHidden ? -100 : 0)
-                
+            CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText) {
+                Button {
+                    if moviesViewModel.searchText != "" {
+                        Task {
+                            await moviesViewModel.getMoviesBySearch()
+                        }
+                    }
+                } label: {
+                    Text("Search")
+                }
+                .buttonStyle(.plain)
+            }
+            .background(.ultraThinMaterial)
+            .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
         }
     }
 }

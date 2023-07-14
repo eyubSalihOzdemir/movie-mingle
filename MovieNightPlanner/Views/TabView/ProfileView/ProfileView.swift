@@ -54,6 +54,9 @@ struct ProfileView: View {
                 .foregroundColor(.white)
                 .background(.red)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+                Color.clear
+                    .frame(height: 10)
             }
         }
     }
@@ -63,7 +66,6 @@ struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ProfileView(userViewModel: UserViewModel())
-                .preferredColorScheme(.light)
         }
     }
 }
