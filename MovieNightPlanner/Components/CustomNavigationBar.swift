@@ -10,20 +10,20 @@ import SwiftUI
 struct CustomNavigationBar<Content: View>: View {
     let title: String
     var shouldPop: Bool
-    var searchBar: Bool
+    var searchText: Binding<String>?
     let actions: () -> Content
     
-    init(title: String, shouldPop: Bool = false, searchBar: Bool = false, @ViewBuilder actions: @escaping () -> Content) {
+    init(title: String, shouldPop: Bool = false, searchText: Binding<String>? = nil, @ViewBuilder actions: @escaping () -> Content) {
         self.title = title
         self.shouldPop = shouldPop
-        self.searchBar = searchBar
+        self.searchText = searchText
         self.actions = actions
     }
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 5) {
             HStack {
                 if shouldPop {
                     Button {
@@ -45,10 +45,10 @@ struct CustomNavigationBar<Content: View>: View {
                 }
             }
             
-            if searchBar {
+            if searchText != nil {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("Search", text: .constant(""))
+                    TextField(Constants.searchBarText, text: searchText!)
                 }
                 .frame(height: Constants.searchBarHieght)
                 .foregroundColor(.secondary)
@@ -57,7 +57,7 @@ struct CustomNavigationBar<Content: View>: View {
                 .cornerRadius(Constants.searchBarCornerRadius)
             }
         }
-        .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHieght : Constants.customNavBarHeight)
+        .frame(height: searchText != nil ? 5 + Constants.customNavBarHeight + Constants.searchBarHieght : Constants.customNavBarHeight)
         .padding(.horizontal, Constants.customNavBarHorizontalPadding)
         //.background(.red)
     }
@@ -65,7 +65,7 @@ struct CustomNavigationBar<Content: View>: View {
 
 struct CustomNavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomNavigationBar(title: "Profile", shouldPop: true, searchBar: true) {
+        CustomNavigationBar(title: "Profile", shouldPop: true) {
             NavigationBarIcon(icon: "calendar")
             NavigationBarIcon(icon: "gearshape")
         }

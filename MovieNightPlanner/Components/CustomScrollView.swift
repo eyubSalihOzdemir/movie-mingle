@@ -19,12 +19,12 @@ struct CustomScrollView<Content: View>: View {
         ScrollView {
             Group {
                 Color.clear
-                    .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHieght : Constants.customNavBarHeight)
+                    .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHieght + 10 : Constants.customNavBarHeight)
                 
                 content()
                 
                 Color.clear
-                    .frame(height: Constants.customTabBarHeight)
+                    .frame(height: 10)
             }
             .background(
                 GeometryReader { geo in

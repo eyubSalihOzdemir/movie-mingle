@@ -9,5 +9,5 @@ import Foundation
 import FirebaseDatabase
 
 @MainActor class ProfileViewModel: ObservableObject {
-    //todo: Add the feature of being able to change the profile picture
+    
 }
