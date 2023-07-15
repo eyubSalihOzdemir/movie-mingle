@@ -29,6 +29,7 @@ struct TabView: View {
                         Label("Profile", systemImage: "person")
                     }
             }
+            .toastView(toast: $userViewModel.toast)
             .onAppear() {
                 UITabBar.appearance().tintColor = UIColor.systemPink
             }

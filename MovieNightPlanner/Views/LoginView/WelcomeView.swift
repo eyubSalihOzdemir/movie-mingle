@@ -36,7 +36,6 @@ struct WelcomeView: View {
                         .zIndex(2)
                 }
             }
-            //.ignoresSafeArea(edges: .bottom)
             .ignoresSafeArea(.container, edges: .bottom)
             .overlay {
                 ZStack(alignment: .center) {
@@ -55,6 +54,7 @@ struct WelcomeView: View {
                 .opacity(userViewModel.loading ? 1 : 0)
             }
         }
+        .toastView(toast: $userViewModel.toast)
     }
 }
 

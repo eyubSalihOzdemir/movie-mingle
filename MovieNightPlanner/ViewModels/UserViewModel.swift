@@ -24,6 +24,8 @@ import SwiftUI
     
     @Published var currentUser: User? = nil
     
+    @Published var toast: Toast? = nil
+    
     var user: FirebaseAuth.User? {
         didSet {
             objectWillChange.send()
@@ -72,7 +74,7 @@ import SwiftUI
                 
                 if authResult != nil {
                     print("Successfully signed in!")
-                    
+                                        
                     self?.signedIn = true
                 }
                 
@@ -80,6 +82,7 @@ import SwiftUI
                     print("There was an error during login!")
                     print(error.localizedDescription)
                     //
+                    self?.toast = Toast(style: .error, message: error.localizedDescription)
                 }
                 
                 withAnimation {
@@ -111,6 +114,7 @@ import SwiftUI
             checkUsernameAlreadyExists(username: username) { isExist in
                 if isExist {
                     print("Username already exists!")
+                    self.toast = Toast(style: .error, message: "Username already exists")
                     
                     withAnimation {
                         self.loading = false
@@ -134,6 +138,7 @@ import SwiftUI
                             print("There was an error during sign up!")
                             print(error.localizedDescription)
                             //
+                            self.toast = Toast(style: .error, message: error.localizedDescription)
                         }
                         
                         withAnimation {

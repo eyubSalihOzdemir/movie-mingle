@@ -9,5 +9,5 @@ import Foundation
 import FirebaseDatabase
 
 @MainActor class ProfileViewModel: ObservableObject {
-    
+    @Published var toast: Toast? = nil
 }
