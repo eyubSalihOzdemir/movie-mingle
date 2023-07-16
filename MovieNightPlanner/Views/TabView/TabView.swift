@@ -16,20 +16,19 @@ struct TabView: View {
             SwiftUI.TabView {
                 EventsView()
                     .tabItem {
-                        Label("Events", systemImage: "calendar")
+                        Label("Events", image: "eventsIconAlt")
                     }
                 
                 MoviesView()
                     .tabItem {
-                        Label("Movies", systemImage: "film.stack")
+                        Label("Movies", image: "movieIconAlt")
                     }
                 
                 ProfileView(userViewModel: userViewModel)
                     .tabItem {
-                        Label("Profile", systemImage: "person")
+                        Label("Profile", image: "profileIcon")
                     }
             }
-            .toastView(toast: $userViewModel.toast)
             .onAppear() {
                 UITabBar.appearance().tintColor = UIColor.systemPink
             }
