@@ -21,33 +21,27 @@ struct MoviesView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Group {
-                if moviesViewModel.userDidNotSearchYet {
+                if moviesViewModel.loading {
                     VStack {
-                        Text("Search for movies")
+                        ProgressView()
                     }
                     .frame(maxHeight: .infinity)
                 } else {
                     Group {
-                        if moviesViewModel.loading {
+                        if moviesViewModel.movieSearchResults.results.isEmpty {
                             VStack {
-                                ProgressView()
+                                Text(moviesViewModel.previousSearch.isEmpty ? "Search for movies" : "No results for \(moviesViewModel.previousSearch)")
                             }
                             .frame(maxHeight: .infinity)
                         } else {
                             CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
-                                Group {
-                                    if moviesViewModel.movieSearchResults.results.isEmpty {
-                                        Text("No results")
-                                    } else {
-                                        LazyVGrid(columns: [GridItem(.flexible())]) {
-                                            ForEach(moviesViewModel.movieSearchResults.results) { result in
-                                                VStack {
-                                                    MovieCardView(title: result.title, originalTitle: result.originalTitle, releaseDate: result.releaseDate, originalLanguage: result.originalLanguage, posterPath: result.posterPath)
-                                                }
-                                            }
-                                            .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                                LazyVGrid(columns: [GridItem(.flexible())]) {
+                                    ForEach(moviesViewModel.movieSearchResults.results) { result in
+                                        VStack {
+                                            MovieCardView(title: result.title, originalTitle: result.originalTitle, releaseDate: result.releaseDate, originalLanguage: result.originalLanguage, posterPath: result.posterPath)
                                         }
                                     }
+                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                                 }
                             }
                         }

@@ -13,16 +13,17 @@ import Foundation
     @Published var navigationBarHidden = false
     @Published var searchText = ""
     @Published var movieSearchResults = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0)
-    @Published var userDidNotSearchYet = true
+    @Published var previousSearch = ""
     
     func getDateFromString(from: String) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        
     }
     
     func getMoviesBySearch() async {
         loading = true
+        
+        previousSearch = searchText
         
         let query = searchText
             .folding(options: .diacriticInsensitive, locale: Locale(identifier: "en"))
@@ -49,7 +50,6 @@ import Foundation
             print("Invalid data")
         }
         
-        userDidNotSearchYet = false
         loading = false
     }
 }
