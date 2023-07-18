@@ -9,7 +9,8 @@ import Foundation
 
 struct MovieSearchResponse: Codable {
     let page: Int
-    let results: [Result]
+    var results: [MovieSearchResult]
+    
     let totalPages, totalResults: Int
     
     enum CodingKeys: String, CodingKey {
@@ -19,7 +20,7 @@ struct MovieSearchResponse: Codable {
     }
 }
 
-struct Result: Identifiable, Codable {
+struct MovieSearchResult: Identifiable, Codable {
     let adult: Bool
     let backdropPath: String?
     let genreIDS: [Int]
