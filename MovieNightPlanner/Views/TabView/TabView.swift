@@ -16,21 +16,30 @@ struct TabView: View {
             SwiftUI.TabView {
                 EventsView()
                     .tabItem {
-                        Label("Events", image: "eventsIconAlt")
+                        Label("Events", image: "eventsIcon_white")
                     }
                 
                 MoviesView()
                     .tabItem {
-                        Label("Movies", image: "movieIconAlt")
+                        Label("Movies", image: "moviesIcon_white")
                     }
                 
                 ProfileView(userViewModel: userViewModel)
                     .tabItem {
-                        Label("Profile", image: "profileIcon")
+                        Label("Profile", image: "profileIcon_white")
                     }
             }
             .onAppear() {
-                UITabBar.appearance().tintColor = UIColor.systemPink
+                let appearance = UITabBarAppearance()
+                //appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+                //appearance.selectionIndicatorTintColor = UIColor(Color.red)
+                appearance.selectionIndicatorImage = UIImage(systemName: "square.and.arrow.up")
+                appearance.selectionIndicatorTintColor = UIColor(Color.blue)
+                
+                // Use this appearance when scrolling behind the TabView:
+                //UITabBar.appearance().standardAppearance = appearance
+                // Use this appearance when scrolled all the way up:
+                UITabBar.appearance().scrollEdgeAppearance = appearance
             }
             
             /*ZStack(alignment: .bottom) {

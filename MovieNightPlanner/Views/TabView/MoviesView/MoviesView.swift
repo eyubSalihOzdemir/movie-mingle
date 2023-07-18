@@ -40,6 +40,11 @@ struct MoviesView: View {
                                         VStack {
                                             MovieCardView(title: result.title, originalTitle: result.originalTitle, releaseDate: result.releaseDate, originalLanguage: result.originalLanguage, posterPath: result.posterPath)
                                         }
+                                        .onTapGesture {
+                                            Task {
+                                                await moviesViewModel.getMovieDetails(movieId: result.id)
+                                            }
+                                        }
                                     }
                                     .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                                 }
@@ -59,11 +64,11 @@ struct MoviesView: View {
                 } label: {
                     Text("Search")
                 }
-                .buttonStyle(.plain)
             }
             .background(.ultraThinMaterial)
             .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
         }
+        .background(Color("Raisin black"))
     }
 }
 

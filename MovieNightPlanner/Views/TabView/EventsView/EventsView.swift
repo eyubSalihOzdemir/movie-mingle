@@ -22,13 +22,15 @@ struct EventsView: View {
             CustomNavigationBar(title: "Events") {
                 NavigationLink {
                     //todo: show a bottom sheet for event creation
+                    Text("test")
                 } label: {
                     NavigationBarIcon(icon: "plus")
                 }
-                .buttonStyle(.plain)
+                //.buttonStyle(.plain)
             }
             .offset(y: navigationBarHidden ? -100 : 0)
         }
+        .background(Color("Raisin black"))
     }
 }
 

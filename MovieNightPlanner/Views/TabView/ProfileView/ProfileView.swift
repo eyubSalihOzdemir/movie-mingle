@@ -22,7 +22,6 @@ struct ProfileView: View {
                     } label: {
                         NavigationBarIcon(icon: "gearshape")
                     }
-                    .buttonStyle(.plain)
                 }
                 
                 Image(userViewModel.currentUser?.avatar ?? "063")
@@ -66,7 +65,7 @@ struct ProfileView: View {
                     .frame(height: 10)
             }
         }
-        
+        .background(Color("Raisin black"))
     }
 }
 

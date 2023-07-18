@@ -43,8 +43,8 @@ struct MovieCardView: View {
             
             VStack(alignment: .leading) {
                 Text(title)
-                    .font(.title.weight(.semibold))
-                Text(originalTitle)
+                    .font(.title2.weight(.semibold))
+                Text(originalTitle.lowercased() == title.lowercased() ? "" : originalTitle)
                     .font(.headline.weight(.light))
                     .foregroundColor(.secondary)
                 
@@ -68,7 +68,7 @@ struct MovieCardView: View {
         .frame(height: 138)
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 20))
-        .shadow(radius: 5)
+        .shadow(radius: 2)
     }
 }
 
