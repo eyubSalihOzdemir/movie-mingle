@@ -49,6 +49,13 @@ struct CustomNavigationBar<Content: View>: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                     TextField(Constants.searchBarText, text: searchText!)
+                    if !(searchText?.wrappedValue == "") {
+                        Button {
+                            searchText?.wrappedValue = ""
+                        } label: {
+                            Image(systemName: "xmark.circle")
+                        }
+                    }
                 }
                 .frame(height: Constants.searchBarHieght)
                 .foregroundColor(.secondary)
