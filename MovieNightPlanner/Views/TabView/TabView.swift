@@ -9,25 +9,29 @@ import SwiftUI
 
 struct TabView: View {
     @ObservedObject var userViewModel: UserViewModel
-    @State private var selectedTab: Tab = .movies
+    //@State private var selectedTab: Tab = .movies
+    @State private var selection = 2
     
     var body: some View {
         NavigationView {
-            SwiftUI.TabView {
+            SwiftUI.TabView(selection: $selection) {
                 EventsView()
                     .tabItem {
                         Label("Events", image: "eventsIcon_white")
                     }
+                    .tag(1)
                 
                 MoviesView()
                     .tabItem {
                         Label("Movies", image: "moviesIcon_white")
                     }
+                    .tag(2)
                 
                 ProfileView(userViewModel: userViewModel)
                     .tabItem {
                         Label("Profile", image: "profileIcon_white")
                     }
+                    .tag(3)
             }
             .onAppear() {
                 let appearance = UITabBarAppearance()
