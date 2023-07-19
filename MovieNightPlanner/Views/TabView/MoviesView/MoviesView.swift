@@ -27,46 +27,49 @@ struct MoviesView: View {
                     }
                     .frame(maxHeight: .infinity)
                 } else {
-                    Group {
-                        if moviesViewModel.movieSearchResults.results.isEmpty {
+                    if moviesViewModel.previousSearch.isEmpty {
+                        CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
                             VStack {
-                                Text(moviesViewModel.previousSearch.isEmpty ? "Search for movies" : "No results for \(moviesViewModel.previousSearch)")
+                                ForEach(moviesViewModel.trendingMovies.results) { movie in
+                                    Text("\(movie.title)")
+                                }
+                                
+                                Divider()
+                                
+                                ForEach(moviesViewModel.upcomingMovies.results) { movie in
+                                    Text("\(movie.title)")
+                                }
                             }
-                            .frame(maxHeight: .infinity)
-                        } else {
-                            CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
-                                LazyVGrid(columns: [GridItem(.flexible())]) {
-                                    ForEach(moviesViewModel.movieSearchResults.results) { result in
-                                        VStack {
-                                            MovieCardView(title: result.title, originalTitle: result.originalTitle, releaseDate: result.releaseDate, originalLanguage: result.originalLanguage, posterPath: result.posterPath)
-                                        }
-                                        .onTapGesture {
-                                            Task {
-                                                await moviesViewModel.getMovieDetails(movieId: result.id)
-                                            }
-                                        }
-                                    }
-                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                        }
+                    } else {
+                        CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
+                            VStack {
+                                ForEach(moviesViewModel.movieSearchResults.results) { movie in
+                                    Text("\(movie.title)")
                                 }
                             }
                         }
                     }
                 }
             }
-
+            
+            //todo: this is going to be changed to "favorites"
             CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText) {
-                Button {
-                    if moviesViewModel.searchText != "" {
-                        Task {
-                            await moviesViewModel.getMoviesBySearch()
-                        }
+                //
+            }
+            //.background(.ultraThinMaterial)
+            .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
+            .onChange(of: moviesViewModel.searchText) { newValue in
+                if !newValue.isEmpty {
+                    //moviesViewModel.previousSearch = ""
+                    Task {
+                        await moviesViewModel.getMoviesBySearch()
                     }
-                } label: {
-                    Text("Search")
+                } else {
+                    moviesViewModel.previousSearch = ""
+                    moviesViewModel.workItem?.cancel()
                 }
             }
-            .background(.ultraThinMaterial)
-            .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
         }
         .background(Color("Raisin black"))
     }
