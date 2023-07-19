@@ -40,12 +40,17 @@ struct MoviesView: View {
                                     Text("\(movie.title)")
                                 }
                             }
+                            //.redacted(reason: moviesViewModel.loading ? .placeholder : [])
                         }
                     } else {
                         CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
                             VStack {
                                 ForEach(moviesViewModel.movieSearchResults.results) { movie in
                                     Text("\(movie.title)")
+                                }
+                                
+                                if moviesViewModel.movieSearchResults.results.isEmpty {
+                                    Text("No results for \(moviesViewModel.previousSearch)")
                                 }
                             }
                         }
@@ -57,11 +62,10 @@ struct MoviesView: View {
             CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText) {
                 //
             }
-            //.background(.ultraThinMaterial)
+            .background(.thinMaterial)
             .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
             .onChange(of: moviesViewModel.searchText) { newValue in
                 if !newValue.isEmpty {
-                    //moviesViewModel.previousSearch = ""
                     Task {
                         await moviesViewModel.getMoviesBySearch()
                     }

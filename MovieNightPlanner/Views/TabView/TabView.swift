@@ -35,7 +35,7 @@ struct TabView: View {
             }
             .onAppear() {
                 let appearance = UITabBarAppearance()
-                //appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+                appearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
                 //appearance.selectionIndicatorTintColor = UIColor(Color.red)
                 appearance.selectionIndicatorImage = UIImage(systemName: "square.and.arrow.up")
                 appearance.selectionIndicatorTintColor = UIColor(Color.blue)
