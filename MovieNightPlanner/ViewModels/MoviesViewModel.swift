@@ -8,12 +8,40 @@
 import Foundation
 
 @MainActor class MoviesViewModel: ObservableObject {
-    @Published var loading = false
+    @Published var loading: Bool
     
-    @Published var navigationBarHidden = false
-    @Published var searchText = ""
-    @Published var movieSearchResults = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0)
-    @Published var previousSearch = ""
+    @Published var navigationBarHidden: Bool
+    @Published var searchText: String
+    @Published var previousSearch: String
+    
+    @Published var movieSearchResults: MovieSearchResponse
+    @Published var trendingMovies: MovieSearchResponse
+    @Published var upcomingMovies: MovieSearchResponse
+    
+    var workItem: DispatchWorkItem?
+    
+    init(
+        loading: Bool = false,
+        navigationBarHidden: Bool = false,
+        searchText: String = "",
+        movieSearchResults: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        trendingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        upcomingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        previousSearch: String = ""
+    ) {
+        self.loading = loading
+        self.navigationBarHidden = navigationBarHidden
+        self.searchText = searchText
+        self.movieSearchResults = movieSearchResults
+        self.previousSearch = previousSearch
+        self.trendingMovies = trendingMovies
+        self.upcomingMovies = upcomingMovies
+        
+        Task {
+            await self.getTrendingMovies()
+            await self.getUpcomingMovies()
+        }
+    }
     
     func getDateFromString(from: String) {
         let formatter = DateFormatter()
@@ -46,16 +74,64 @@ import Foundation
     }
     
     func getMoviesBySearch() async {
+        //self.loading = true
+        print("function fired")
+        
+        workItem?.cancel()
+        
+        let newWorkItem = DispatchWorkItem {
+            print("task set")
+            Task {
+                self.loading = true
+                
+                let query = self.searchText
+                    .folding(options: .diacriticInsensitive, locale: Locale(identifier: "en"))
+                    .lowercased()
+                    .replacingOccurrences(of: " ", with: "+")
+                
+                print("search query: \(query) <-")
+                
+                guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(query)&include_adult=false&language=en-US&page=1&api_key=\(Constants.apiKey)") else {
+                    self.loading = false
+                    print("Invalid URL for movie searching")
+                    return
+                }
+                
+                do {
+                    let (data, _) = try await URLSession.shared.data(from: url)
+                    
+                    if let decodedResponse = try? JSONDecoder().decode(MovieSearchResponse.self, from: data) {
+                        self.previousSearch = self.searchText
+                        
+                        var response = decodedResponse
+                        response.results.sort {
+                            $0.popularity > $1.popularity
+                        }
+                        self.movieSearchResults = response
+                    } else {
+                        print("Couldn't decode response!")
+                    }
+                } catch {
+                    print("Invalid data for seraching movie")
+                }
+                
+                self.loading = false
+            }
+        }
+        
+        workItem = newWorkItem
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(500), execute: newWorkItem)
+        
+        print("function ended")
+        
+        //loading = false
+    }
+    
+    func getTrendingMovies() async {
         loading = true
         
-        previousSearch = searchText
-        
-        let query = searchText
-            .folding(options: .diacriticInsensitive, locale: Locale(identifier: "en"))
-            .lowercased()
-            .replacingOccurrences(of: " ", with: "+")
-        
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(query)&include_adult=false&language=en-US&page=1&api_key=\(Constants.apiKey)") else {
+        guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/week?api_key=\(Constants.apiKey)") else {
             loading = false
             print("Invalid URL for movie searching")
             return
@@ -69,12 +145,40 @@ import Foundation
                 response.results.sort {
                     $0.popularity > $1.popularity
                 }
-                movieSearchResults = response
+                trendingMovies = response
             } else {
                 print("Couldn't decode response!")
             }
         } catch {
-            print("Invalid data for seraching movie")
+            print("Invalid data for trending movies")
+        }
+        
+        loading = false
+    }
+    
+    func getUpcomingMovies() async {
+        loading = true
+        
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/upcoming?api_key=\(Constants.apiKey)") else {
+            loading = false
+            print("Invalid URL for movie searching")
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            
+            if let decodedResponse = try? JSONDecoder().decode(MovieSearchResponse.self, from: data) {
+                var response = decodedResponse
+                response.results.sort {
+                    $0.popularity > $1.popularity
+                }
+                upcomingMovies = response
+            } else {
+                print("Couldn't decode response!")
+            }
+        } catch {
+            print("Invalid data for upcoming movies")
         }
         
         loading = false
