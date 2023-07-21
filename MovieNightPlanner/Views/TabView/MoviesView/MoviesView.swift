@@ -29,15 +29,29 @@ struct MoviesView: View {
                 } else {
                     if moviesViewModel.previousSearch.isEmpty {
                         CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
-                            VStack {
-                                ForEach(moviesViewModel.trendingMovies.results) { movie in
-                                    Text("\(movie.title)")
+                            VStack(spacing: 30) {
+                                VStack {
+                                    HStack {
+                                        Text("Trending Movies")
+                                            .font(.title2.weight(.semibold))
+                                        
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                                    
+                                    HorizontalMoviesSlider(moviesViewModel: moviesViewModel, movies: moviesViewModel.trendingMovies.results)
                                 }
                                 
-                                Divider()
-                                
-                                ForEach(moviesViewModel.upcomingMovies.results) { movie in
-                                    Text("\(movie.title)")
+                                VStack {
+                                    HStack {
+                                        Text("Upcoming Movies")
+                                            .font(.title2.weight(.semibold))
+                                        
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                                    
+                                    HorizontalMoviesSlider(moviesViewModel: moviesViewModel, movies: moviesViewModel.upcomingMovies.results)
                                 }
                             }
                             //.redacted(reason: moviesViewModel.loading ? .placeholder : [])
