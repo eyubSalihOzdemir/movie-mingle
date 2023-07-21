@@ -12,10 +12,10 @@
 		251187422A59CC9800D24597 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251187412A59CC9800D24597 /* User.swift */; };
 		251C77DC2A558AEA00D36462 /* loading.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 251C77DB2A558AE900D36462 /* loading.lottie */; };
 		2521245A2A654F590083073C /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252124592A654F590083073C /* Movie.swift */; };
+		252DBC802A6AB37900D78821 /* VerticalMovieCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DBC7F2A6AB37900D78821 /* VerticalMovieCardView.swift */; };
 		2568CE902A576D3500AC5571 /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CE8F2A576D3500AC5571 /* EventsView.swift */; };
 		2568CE922A576D4500AC5571 /* MoviesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CE912A576D4500AC5571 /* MoviesView.swift */; };
 		2568CE942A576D5000AC5571 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CE932A576D5000AC5571 /* ProfileView.swift */; };
-		2568CE962A576DD900AC5571 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568CE952A576DD900AC5571 /* TabItemView.swift */; };
 		257D93592A528D810047DDEC /* LoginTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D93582A528D810047DDEC /* LoginTabView.swift */; };
 		257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935A2A528E3D0047DDEC /* SignUpTabView.swift */; };
 		257D935D2A528EF40047DDEC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257D935C2A528EF40047DDEC /* CustomTextField.swift */; };
@@ -52,10 +52,10 @@
 		251187412A59CC9800D24597 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		251C77DB2A558AE900D36462 /* loading.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = loading.lottie; sourceTree = "<group>"; };
 		252124592A654F590083073C /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		252DBC7F2A6AB37900D78821 /* VerticalMovieCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMovieCardView.swift; sourceTree = "<group>"; };
 		2568CE8F2A576D3500AC5571 /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		2568CE912A576D4500AC5571 /* MoviesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesView.swift; sourceTree = "<group>"; };
 		2568CE932A576D5000AC5571 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		2568CE952A576DD900AC5571 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		257D93582A528D810047DDEC /* LoginTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTabView.swift; sourceTree = "<group>"; };
 		257D935A2A528E3D0047DDEC /* SignUpTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTabView.swift; sourceTree = "<group>"; };
 		257D935C2A528EF40047DDEC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -110,6 +110,35 @@
 				252124592A654F590083073C /* Movie.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		252DBC7C2A6AB28900D78821 /* MoviesView */ = {
+			isa = PBXGroup;
+			children = (
+				25FFEFD82A68BF9B0084655A /* HorizontalMoviesSlider.swift */,
+				25F530C92A6045C700E154CB /* MovieSearchCardView.swift */,
+				25A5B05D2A69D51200BC037C /* HorizontalMovieCardView.swift */,
+				252DBC7F2A6AB37900D78821 /* VerticalMovieCardView.swift */,
+			);
+			path = MoviesView;
+			sourceTree = "<group>";
+		};
+		252DBC7D2A6AB2A800D78821 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				25EE71982A51AE6200B790BB /* MoviePosterView.swift */,
+				257D935C2A528EF40047DDEC /* CustomTextField.swift */,
+				25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		252DBC7E2A6AB2DB00D78821 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				258703802A549444000A0218 /* LottieView.swift */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		2568CE8C2A576CAB00AC5571 /* EventsView */ = {
@@ -261,17 +290,12 @@
 		25EE71952A51848100B790BB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				252DBC7E2A6AB2DB00D78821 /* Lottie */,
+				252DBC7D2A6AB2A800D78821 /* LoginView */,
+				252DBC7C2A6AB28900D78821 /* MoviesView */,
 				25C4BF912A627A6B00E9BC38 /* NavigationBar */,
-				258703802A549444000A0218 /* LottieView.swift */,
-				25F530C92A6045C700E154CB /* MovieSearchCardView.swift */,
-				25EE71962A51855B00B790BB /* AutoScrollBackgroundView.swift */,
-				25EE71982A51AE6200B790BB /* MoviePosterView.swift */,
-				257D935C2A528EF40047DDEC /* CustomTextField.swift */,
-				2568CE952A576DD900AC5571 /* TabItemView.swift */,
 				25ED7B732A5CA719000A9F6B /* CustomScrollView.swift */,
 				25C4BF952A627BC000E9BC38 /* ToastView.swift */,
-				25FFEFD82A68BF9B0084655A /* HorizontalMoviesSlider.swift */,
-				25A5B05D2A69D51200BC037C /* HorizontalMovieCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -414,6 +438,7 @@
 				25EE718E2A5152C800B790BB /* Extensions.swift in Sources */,
 				25EE71902A5152FE00B790BB /* Blur.swift in Sources */,
 				257D93592A528D810047DDEC /* LoginTabView.swift in Sources */,
+				252DBC802A6AB37900D78821 /* VerticalMovieCardView.swift in Sources */,
 				25F97F682A5D81F900EBA9E1 /* MovieSearchResponse.swift in Sources */,
 				25A25C7C2A50C23E00FEFDED /* MovieNightPlannerApp.swift in Sources */,
 				25ED7B722A5C741C000A9F6B /* Constants.swift in Sources */,
@@ -421,7 +446,6 @@
 				257D935B2A528E3D0047DDEC /* SignUpTabView.swift in Sources */,
 				25DDC6602A56F4B1006C43BD /* Tabs.swift in Sources */,
 				25AC4F582A55D42F00152AF2 /* WelcomeView.swift in Sources */,
-				2568CE962A576DD900AC5571 /* TabItemView.swift in Sources */,
 				25C4BF932A627AC600E9BC38 /* Toast.swift in Sources */,
 				2568CE942A576D5000AC5571 /* ProfileView.swift in Sources */,
 				2568CE922A576D4500AC5571 /* MoviesView.swift in Sources */,

@@ -38,7 +38,7 @@ struct HorizontalMoviesSlider: View {
                 .offset(x: index == lastIndex ? geo.size.width - CGFloat((itemWidth)) : 0)
             }
         }
-        .padding(.horizontal, CGFloat(horizontalPadding))
+        //.padding(.horizontal, CGFloat(horizontalPadding))
         .gesture(
             DragGesture()
                 .onChanged { value in

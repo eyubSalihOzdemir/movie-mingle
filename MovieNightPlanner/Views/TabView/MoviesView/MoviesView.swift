@@ -37,10 +37,10 @@ struct MoviesView: View {
                                         
                                         Spacer()
                                     }
-                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                                     
                                     HorizontalMoviesSlider(moviesViewModel: moviesViewModel, movies: moviesViewModel.trendingMovies.results)
                                 }
+                                .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                                 
                                 VStack {
                                     HStack {
@@ -49,10 +49,14 @@ struct MoviesView: View {
                                         
                                         Spacer()
                                     }
-                                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                                     
-                                    HorizontalMoviesSlider(moviesViewModel: moviesViewModel, movies: moviesViewModel.upcomingMovies.results)
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                                        ForEach(moviesViewModel.upcomingMovies.results) { movie in
+                                            VerticalMovieCardView(moviesViewModel: moviesViewModel, movie: movie)
+                                        }
+                                    }
                                 }
+                                .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                             }
                             //.redacted(reason: moviesViewModel.loading ? .placeholder : [])
                         }
