@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MovieCardView: View {
+struct MovieSearchCardView: View {
     var title: String
     var originalTitle: String
     var releaseDate: String
@@ -72,8 +72,8 @@ struct MovieCardView: View {
     }
 }
 
-struct MovieCardView_Previews: PreviewProvider {
+struct MovieSearchCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieCardView(title: "Movie Title", originalTitle: "Original Movie Title", releaseDate: "01.01.2023", originalLanguage: "French")
+        MovieSearchCardView(title: "Movie Title", originalTitle: "Original Movie Title", releaseDate: "01.01.2023", originalLanguage: "French")
     }
 }
