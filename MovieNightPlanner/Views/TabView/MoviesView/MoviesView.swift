@@ -18,6 +18,8 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 struct MoviesView: View {
     @StateObject var moviesViewModel = MoviesViewModel()
     
+    @State private var movieToShowDetails: MovieSearchResult? = nil
+    
     var body: some View {
         ZStack(alignment: .top) {
             Group {
@@ -53,6 +55,9 @@ struct MoviesView: View {
                                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
                                         ForEach(moviesViewModel.upcomingMovies.results) { movie in
                                             VerticalMovieCardView(moviesViewModel: moviesViewModel, movie: movie)
+                                                .onTapGesture {
+                                                    movieToShowDetails = movie
+                                                }
                                         }
                                     }
                                 }
@@ -64,7 +69,6 @@ struct MoviesView: View {
                         CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
                             VStack {
                                 ForEach(moviesViewModel.movieSearchResults.results) { movie in
-                                    //Text("\(movie.title)")
                                     MovieSearchCardView(moviesViewModel: moviesViewModel, movie: movie)
                                 }
                                 
@@ -78,9 +82,8 @@ struct MoviesView: View {
                 }
             }
             
-            //todo: this is going to be changed to "favorites"
             CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText) {
-                //
+                //todo: add a "Favorites" button here
             }
             .background(.thinMaterial)
             .offset(y: moviesViewModel.navigationBarHidden ? -200 : 0)
@@ -96,6 +99,9 @@ struct MoviesView: View {
             }
         }
         .background(Color("Raisin black"))
+        .sheet(item: $movieToShowDetails, content: { movie in
+            DetailedMovieView(moviesViewModel: moviesViewModel, movie: movie)
+        })
     }
 }
 

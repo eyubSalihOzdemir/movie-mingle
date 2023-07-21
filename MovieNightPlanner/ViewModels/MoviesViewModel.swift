@@ -18,6 +18,33 @@ import Foundation
     @Published var trendingMovies: MovieSearchResponse
     @Published var upcomingMovies: MovieSearchResponse
     
+    //todo: make this 'nil' on navigation back or sheet close
+    @Published var detailedMovie: Movie?
+    
+    var countries: String {
+        var countryList = [String]()
+
+        detailedMovie?.productionCountries.forEach { country in
+            countryList.append(country.shortName)
+        }
+        
+        return countryList.joined(separator: ", ")
+    }
+    
+    var importantPeople: String {
+        var castList = [String]()
+        
+        let popularitySorted = detailedMovie?.credits.cast.sorted {
+            $0.popularity > $1.popularity
+        }
+        
+        popularitySorted?[0...2].forEach { cast in
+            castList.append(cast.name)
+        }
+        
+        return castList.joined(separator: ", ")
+    }
+    
     var workItem: DispatchWorkItem?
     
     init(
@@ -61,7 +88,8 @@ import Foundation
             let (data, _) = try await URLSession.shared.data(from: url)
             
             if let decodedResponse = try? JSONDecoder().decode(Movie.self, from: data) {
-                print("Movies imdb id is: \(decodedResponse.imdbID)")
+                //print("Movies imdb id is: \(decodedResponse.imdbID)")
+                detailedMovie = decodedResponse
             } else {
                 print("Couldn't decode response!")
             }
