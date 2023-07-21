@@ -45,8 +45,8 @@ struct Movie: Codable, Identifiable {
 struct MovieCollection: Codable, Identifiable {
     let id: Int
     let name: String
-    let posterPath: String
-    let backdropPath: String
+    let posterPath: String?
+    let backdropPath: String?
     
     enum CodingKeys: String, CodingKey {
         case id, name
