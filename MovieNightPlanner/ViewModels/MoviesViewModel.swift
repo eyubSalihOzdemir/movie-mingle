@@ -74,22 +74,17 @@ import Foundation
     }
     
     func getMoviesBySearch() async {
-        //self.loading = true
-        print("function fired")
-        
         workItem?.cancel()
         
         let newWorkItem = DispatchWorkItem {
-            print("task set")
             Task {
                 self.loading = true
                 
                 let query = self.searchText
+                    .uppercased()
                     .folding(options: .diacriticInsensitive, locale: Locale(identifier: "en"))
                     .lowercased()
                     .replacingOccurrences(of: " ", with: "+")
-                
-                print("search query: \(query) <-")
                 
                 guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(query)&include_adult=false&language=en-US&page=1&api_key=\(Constants.apiKey)") else {
                     self.loading = false
@@ -122,10 +117,6 @@ import Foundation
         workItem = newWorkItem
         
         DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(500), execute: newWorkItem)
-        
-        print("function ended")
-        
-        //loading = false
     }
     
     func getTrendingMovies() async {
@@ -182,5 +173,15 @@ import Foundation
         }
         
         loading = false
+    }
+    
+    func getGenresText(genreIDS: [Int]) -> String {
+        var genreStringList = [String]()
+        
+        genreIDS.forEach { genreID in
+            genreStringList.append(Constants.getGenre(id: genreID))
+        }
+        
+        return genreStringList.joined(separator: ", ")
     }
 }
