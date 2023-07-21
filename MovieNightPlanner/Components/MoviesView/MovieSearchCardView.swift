@@ -8,21 +8,18 @@
 import SwiftUI
 
 struct MovieSearchCardView: View {
-    var title: String
-    var originalTitle: String
-    var releaseDate: String
-    var originalLanguage: String
-    var posterPath: String?
+    @ObservedObject var moviesViewModel: MoviesViewModel
+    var movie: MovieSearchResult
     
     var date: Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: releaseDate)
+        return dateFormatter.date(from: movie.releaseDate)
     }
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w92\(posterPath ?? "")")) { phase in
+            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w92\(movie.posterPath ?? "")")) { phase in
                 switch phase {
                 case .failure:
                     Image("poster-placeholder")
@@ -42,38 +39,42 @@ struct MovieSearchCardView: View {
             }
             
             VStack(alignment: .leading) {
-                Text(title)
-                    .font(.title2.weight(.semibold))
-                Text(originalTitle.lowercased() == title.lowercased() ? "" : originalTitle)
-                    .font(.headline.weight(.light))
-                    .foregroundColor(.secondary)
-                
-                Spacer()
-                
-                HStack{
-                    Text("\(date?.formatted(.dateTime.year()) ?? releaseDate)")
+                HStack(alignment: .top) {
+                    Text(movie.title)
+                        .font(.title3.weight(.semibold)) +
+                    Text(movie.originalTitle.lowercased() == movie.title.lowercased() ? "" : " (\(movie.originalTitle))")
                         .font(.headline.weight(.light))
+                        .foregroundColor(.secondary)
                     
                     Spacer()
                     
-                    Text(originalLanguage)
-                        .font(.headline.weight(.light))
+                    Text("\(date?.formatted(.dateTime.year()) ?? movie.releaseDate)")
+                        .font(.footnote.weight(.light))
                 }
+                
+                Text("\(moviesViewModel.getGenresText(genreIDS: movie.genreIDS))")
+                    .lineLimit(1)
+                    .font(.footnote.weight(.light))
+                
+                Spacer()
+                
+                Text(movie.overview)
+                    .lineLimit(2)
+                    .font(.footnote.weight(.light))
             }
-            .padding(.vertical, 10)
-            .padding(.trailing, 10)
+            .padding(5)
             
             Spacer()
         }
         .frame(height: 138)
         .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipShape(RoundedRectangle(cornerRadius: 5))
         .shadow(radius: 2)
     }
 }
 
 struct MovieSearchCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieSearchCardView(title: "Movie Title", originalTitle: "Original Movie Title", releaseDate: "01.01.2023", originalLanguage: "French")
+        MovieSearchCardView(moviesViewModel: MoviesViewModel(), movie: MovieSearchResult(adult: false, backdropPath: "/qWQSnedj0LCUjWNp9fLcMtfgadp.jpg", genreIDS: [28,12,16], id: 1, originalLanguage: "en", originalTitle: "Original Movie Title 1", overview: "When a new threat capable of destroying the entire planet emerges, Optimus Prime and the Autobots must team up with a powerful faction known as the Maximals. With the fate of humanity hanging in the balance, humans Noah and Elena will do whatever it takes to help the Transformers as they engage in the ultimate battle to save Earth.", popularity: 123.456, posterPath: "/gPbM0MK8CP8A174rmUwGsADNYKD.jpg", releaseDate: "01.01.1970", title: "Movie Title 1", video: false, voteAverage: 3.1, voteCount: 31))
     }
 }

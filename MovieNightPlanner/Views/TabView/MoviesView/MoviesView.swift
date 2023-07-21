@@ -64,13 +64,15 @@ struct MoviesView: View {
                         CustomScrollView(navigationBarHidden: $moviesViewModel.navigationBarHidden, searchBar: true) {
                             VStack {
                                 ForEach(moviesViewModel.movieSearchResults.results) { movie in
-                                    Text("\(movie.title)")
+                                    //Text("\(movie.title)")
+                                    MovieSearchCardView(moviesViewModel: moviesViewModel, movie: movie)
                                 }
                                 
                                 if moviesViewModel.movieSearchResults.results.isEmpty {
                                     Text("No results for \(moviesViewModel.previousSearch)")
                                 }
                             }
+                            .padding(.horizontal, Constants.customNavBarHorizontalPadding)
                         }
                     }
                 }
