@@ -63,8 +63,12 @@ struct DetailedMovieView: View {
                     .frame(maxWidth: .infinity)
                 } else {
                     VStack(spacing: 20) {
-                        Text(moviesViewModel.detailedMovie?.tagline ?? "")
-                            .font(.title2.weight(.bold))
+                        if let tagline = moviesViewModel.detailedMovie?.tagline {
+                            if !tagline.isEmpty {
+                                Text(tagline)
+                                    .font(.title2.weight(.bold))
+                            }
+                        }
                         
                         HStack {
                             Spacer()
@@ -91,24 +95,31 @@ struct DetailedMovieView: View {
                         Text(moviesViewModel.importantPeople)
                         
                         // direct to "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID)/"
-                        Link(destination: URL(string: "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID ?? "")/")!) {
-                            HStack(spacing: 5) {
-                                Text("Visit")
-                                Image("imdb")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40)
-                            }
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(lineWidth: 1)
-                                    .frame(width: 84, height: 28)
+                        
+                        if let imdbID = moviesViewModel.detailedMovie?.imdbID {
+                            Link(destination: URL(string: "https://www.imdb.com/title/\(imdbID)/")!) {
+                                HStack(spacing: 5) {
+                                    Text("Visit")
+                                    Image("imdb")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 40)
+                                }
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(lineWidth: 1)
+                                        .frame(width: 84, height: 28)
+                                }
                             }
                         }
                         
                         Text(moviesViewModel.detailedMovie?.overview ?? "")
                         
-                        Text(moviesViewModel.detailedMovie?.belongsToCollection?.name ?? "")
+                        if let collection = moviesViewModel.detailedMovie?.belongsToCollection?.name {
+                            if !collection.isEmpty {
+                                Text(collection)
+                            }
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(10)
