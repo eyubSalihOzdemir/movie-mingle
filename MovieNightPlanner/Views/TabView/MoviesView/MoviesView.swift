@@ -70,6 +70,11 @@ struct MoviesView: View {
                             VStack {
                                 ForEach(moviesViewModel.movieSearchResults.results) { movie in
                                     MovieSearchCardView(moviesViewModel: moviesViewModel, movie: movie)
+                                        .onTapGesture {
+                                            if moviesViewModel.movieToShowDetails == nil {
+                                                moviesViewModel.movieToShowDetails = movie
+                                            }
+                                        }
                                 }
                                 
                                 if moviesViewModel.movieSearchResults.results.isEmpty {
@@ -104,7 +109,6 @@ struct MoviesView: View {
         } content: { movie in
             DetailedMovieView(moviesViewModel: moviesViewModel, movie: movie)
         }
-
     }
 }
 

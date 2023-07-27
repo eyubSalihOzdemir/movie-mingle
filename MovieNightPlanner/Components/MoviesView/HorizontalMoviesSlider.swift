@@ -31,6 +31,11 @@ struct HorizontalMoviesSlider: View {
                 ForEach(movies, id: \.id) { movie in
                     HorizontalMovieCardView(moviesViewModel: moviesViewModel, movie: movie)
                         .frame(width: CGFloat(itemWidth), height: CGFloat(itemHeight))
+                        .onTapGesture {
+                            if moviesViewModel.movieToShowDetails == nil {
+                                moviesViewModel.movieToShowDetails = movie
+                            }
+                        }
                 }
                 /// card with + spacing
                 .offset(x: offsetAmount - CGFloat((itemWidth + spacing) * index))
