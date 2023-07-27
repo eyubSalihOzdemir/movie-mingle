@@ -9,7 +9,7 @@ import Foundation
 
 struct Movie: Codable, Identifiable {
     let id: Int
-    let imdbID: String
+    let imdbID: String?
     let title: String
     let originalTitle: String
     let originalLanguage: String

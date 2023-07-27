@@ -68,11 +68,17 @@ import Foundation
             $0.popularity > $1.popularity
         }
         
-        popularitySorted?[0...2].forEach { cast in
-            castList.append(cast.name)
+        if let peopleList = popularitySorted {
+            if !peopleList.isEmpty {
+                peopleList[0...(min(peopleList.count, 2) - 1)].forEach { cast in
+                    castList.append(cast.name)
+                }
+                
+                return castList.joined(separator: ", ")
+            }
         }
         
-        return castList.joined(separator: ", ")
+        return ""
     }
     
     var workItem: DispatchWorkItem?
@@ -98,7 +104,7 @@ import Foundation
                 //print("Movies imdb id is: \(decodedResponse.imdbID)")
                 detailedMovie = decodedResponse
             } else {
-                print("Couldn't decode response!")
+                print("Couldn't decode response while getting movie details!")
             }
             //print("Data: \(String(data: data, encoding: String.Encoding.utf8))")
         } catch {
@@ -139,7 +145,7 @@ import Foundation
                         }
                         self.movieSearchResults = response
                     } else {
-                        print("Couldn't decode response!")
+                        print("Couldn't decode response while searching for movies!")
                     }
                 } catch {
                     print("Invalid data for seraching movie")
@@ -173,7 +179,7 @@ import Foundation
                 }
                 trendingMovies = response
             } else {
-                print("Couldn't decode response!")
+                print("Couldn't decode response while getting trending movies!")
             }
         } catch {
             print("Invalid data for trending movies")
@@ -201,7 +207,7 @@ import Foundation
                 }
                 upcomingMovies = response
             } else {
-                print("Couldn't decode response!")
+                print("Couldn't decode response while getting upcoming movies!")
             }
         } catch {
             print("Invalid data for upcoming movies")
