@@ -23,7 +23,7 @@ struct MoviesView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Group {
-                if moviesViewModel.loading {
+                if moviesViewModel.loadingMoviesView {
                     VStack {
                         ProgressView()
                     }

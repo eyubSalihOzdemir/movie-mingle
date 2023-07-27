@@ -8,6 +8,7 @@
 import Foundation
 
 @MainActor class MoviesViewModel: ObservableObject {
+    @Published var loadingMoviesView: Bool
     @Published var loading: Bool
     
     @Published var navigationBarHidden: Bool
@@ -54,7 +55,8 @@ import Foundation
         movieSearchResults: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
         trendingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
         upcomingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
-        previousSearch: String = ""
+        previousSearch: String = "",
+        loadingMoviesView: Bool = false
     ) {
         self.loading = loading
         self.navigationBarHidden = navigationBarHidden
@@ -63,6 +65,7 @@ import Foundation
         self.previousSearch = previousSearch
         self.trendingMovies = trendingMovies
         self.upcomingMovies = upcomingMovies
+        self.loadingMoviesView = loadingMoviesView
         
         Task {
             await self.getTrendingMovies()
@@ -148,10 +151,10 @@ import Foundation
     }
     
     func getTrendingMovies() async {
-        loading = true
+        loadingMoviesView = true
         
         guard let url = URL(string: "https://api.themoviedb.org/3/trending/movie/week?api_key=\(Constants.apiKey)") else {
-            loading = false
+            loadingMoviesView = false
             print("Invalid URL for movie searching")
             return
         }
@@ -172,14 +175,14 @@ import Foundation
             print("Invalid data for trending movies")
         }
         
-        loading = false
+        loadingMoviesView = false
     }
     
     func getUpcomingMovies() async {
-        loading = true
+        loadingMoviesView = true
         
         guard let url = URL(string: "https://api.themoviedb.org/3/movie/upcoming?api_key=\(Constants.apiKey)") else {
-            loading = false
+            loadingMoviesView = false
             print("Invalid URL for movie searching")
             return
         }
@@ -200,7 +203,7 @@ import Foundation
             print("Invalid data for upcoming movies")
         }
         
-        loading = false
+        loadingMoviesView = false
     }
     
     func getGenresText(genreIDS: [Int]) -> String {
