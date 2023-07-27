@@ -11,5 +11,6 @@ target 'MovieNightPlanner' do
 	pod 'Firebase/Core'
 	pod ‘Firebase/Database’
 	pod 'lottie-ios'
+  pod 'Kingfisher', '~> 7.0'
 
 end

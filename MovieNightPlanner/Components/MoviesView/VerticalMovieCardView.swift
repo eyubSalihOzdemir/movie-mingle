@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct VerticalMovieCardView: View {
     @ObservedObject var moviesViewModel: MoviesViewModel
@@ -20,24 +21,32 @@ struct VerticalMovieCardView: View {
         ZStack {
             Color.gray
             
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w185\(movie.posterPath ?? "")")) { phase in
-                switch phase {
-                case .failure:
-                    Image("poster-placeholder")
-                        .resizable()
-                        .scaledToFill()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                default:
-                    ProgressView()
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w185\(movie.posterPath ?? "")"))
+                .resizable()
+                .scaledToFill()
+                .frame(width: CGFloat(width), height: CGFloat(height))
+                .overlay {
+                    LinearGradient(colors: [Color.clear, Color.black], startPoint: .center, endPoint: .bottom)
                 }
-            }
-            .frame(width: CGFloat(width), height: CGFloat(height))
-            .overlay {
-                LinearGradient(colors: [Color.clear, Color.black], startPoint: .center, endPoint: .bottom)
-            }
+            
+//            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w185\(movie.posterPath ?? "")")) { phase in
+//                switch phase {
+//                case .failure:
+//                    Image("poster-placeholder")
+//                        .resizable()
+//                        .scaledToFill()
+//                case .success(let image):
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//                default:
+//                    ProgressView()
+//                }
+//            }
+//            .frame(width: CGFloat(width), height: CGFloat(height))
+//            .overlay {
+//                LinearGradient(colors: [Color.clear, Color.black], startPoint: .center, endPoint: .bottom)
+//            }
             
             VStack {
                 Spacer()
