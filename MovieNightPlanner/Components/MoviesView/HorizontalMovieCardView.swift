@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct HorizontalMovieCardView: View {
     @ObservedObject var moviesViewModel: MoviesViewModel
@@ -20,24 +21,18 @@ struct HorizontalMovieCardView: View {
         ZStack {
             Color.gray
             
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w780\(movie.backdropPath ?? "")")) { phase in
-                switch phase {
-                case .failure:
-                    Image("poster-placeholder")
-                        .resizable()
-                        .scaledToFill()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                default:
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w780\(movie.backdropPath ?? "")"))
+                .cacheMemoryOnly()
+                .fade(duration: 0.25)
+                .placeholder {
                     ProgressView()
                 }
-            }
-            .frame(width: CGFloat(width), height: CGFloat(height))
-            .overlay {
-                LinearGradient(colors: [Color.clear, Color.black], startPoint: .center, endPoint: .bottom)
-            }
+                .resizable()
+                .scaledToFill()
+                .frame(width: CGFloat(width), height: CGFloat(height))
+                .overlay {
+                    LinearGradient(colors: [Color.clear, Color.black], startPoint: .center, endPoint: .bottom)
+                }
               
             VStack {
                 Spacer()

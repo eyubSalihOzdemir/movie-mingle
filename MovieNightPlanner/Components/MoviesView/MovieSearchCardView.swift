@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MovieSearchCardView: View {
     @ObservedObject var moviesViewModel: MoviesViewModel
@@ -19,24 +20,16 @@ struct MovieSearchCardView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w92\(movie.posterPath ?? "")")) { phase in
-                switch phase {
-                case .failure:
-                    Image("poster-placeholder")
-                        .resizable()
-                        .frame(width: 92)
-                        .scaledToFit()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 92)
-                        
-                default:
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w92\(movie.posterPath ?? "")"))
+                .cacheMemoryOnly()
+                .fade(duration: 0.25)
+                .placeholder {
                     ProgressView()
                         .frame(width: 92)
                 }
-            }
+                .resizable()
+                .scaledToFill()
+                .frame(width: 92)
             
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {

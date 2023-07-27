@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct DetailedMovieView: View {
     @ObservedObject var moviesViewModel: MoviesViewModel
@@ -13,53 +14,42 @@ struct DetailedMovieView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w780\(movie.backdropPath ?? "")")) { phase in
-                switch phase {
-                case .failure:
-                    Image("poster-placeholder")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 220)
-                        .clipped()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 220)
-                default:
-                    //ProgressView()
-                    Image("poster-placeholder")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 220)
-                        .clipped()
+            
+            KFImage(URL(string: "https://image.tmdb.org/t/p/w780\(movie.backdropPath ?? "")"))
+                .cacheMemoryOnly()
+                .fade(duration: 0.25)
+                .placeholder {
+                    ProgressView()
                 }
-            }
-            .overlay {
-                ZStack(alignment: .bottom) {
-                    LinearGradient(colors: [Color.clear, Color("Raisin black")], startPoint: .center, endPoint: .bottom)
-                    
-                    VStack(alignment: .leading, spacing: 5) {
-                        HStack {
-                            Group {
-                                Text("\(movie.title)")
-                                    .font(.title2.weight(.semibold)) +
-                                Text(movie.originalTitle.lowercased() == movie.title.lowercased() ? "" : " (\(movie.originalTitle))")
-                                    .font(.title3.weight(.light))
-                                    .foregroundColor(.secondary)
-                            }
-                            .lineLimit(2)
-                            
-                            Spacer()
-                        }
+                .resizable()
+                .scaledToFill()
+                .frame(height: 220)
+                .clipped()
+                .overlay {
+                    ZStack(alignment: .bottom) {
+                        LinearGradient(colors: [Color.clear, Color("Raisin black")], startPoint: .center, endPoint: .bottom)
                         
-                        Text("\(moviesViewModel.getGenresText(genreIDS: movie.genreIDS))")
-                            .lineLimit(1)
-                            .font(.subheadline.weight(.ultraLight))
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Group {
+                                    Text("\(movie.title)")
+                                        .font(.title2.weight(.semibold)) +
+                                    Text(movie.originalTitle.lowercased() == movie.title.lowercased() ? "" : " (\(movie.originalTitle))")
+                                        .font(.title3.weight(.light))
+                                        .foregroundColor(.secondary)
+                                }
+                                .lineLimit(2)
+                                
+                                Spacer()
+                            }
+                            
+                            Text("\(moviesViewModel.getGenresText(genreIDS: movie.genreIDS))")
+                                .lineLimit(1)
+                                .font(.subheadline.weight(.ultraLight))
+                        }
+                        .padding(.horizontal, 10)
                     }
-                    .padding(.horizontal, 10)
                 }
-            }
             
             Group {
                 if moviesViewModel.loadingMovieDetails {
