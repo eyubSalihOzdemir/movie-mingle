@@ -56,7 +56,9 @@ struct MoviesView: View {
                                         ForEach(moviesViewModel.upcomingMovies.results) { movie in
                                             VerticalMovieCardView(moviesViewModel: moviesViewModel, movie: movie)
                                                 .onTapGesture {
-                                                    movieToShowDetails = movie
+                                                    if movieToShowDetails == nil {
+                                                        movieToShowDetails = movie
+                                                    }
                                                 }
                                         }
                                     }
@@ -102,6 +104,7 @@ struct MoviesView: View {
         .sheet(item: $movieToShowDetails, content: { movie in
             DetailedMovieView(moviesViewModel: moviesViewModel, movie: movie)
         })
+
     }
 }
 
