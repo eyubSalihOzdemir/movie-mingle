@@ -20,7 +20,8 @@ import Foundation
     @Published var trendingMovies: MovieSearchResponse
     @Published var upcomingMovies: MovieSearchResponse
     
-    //todo: make this 'nil' on navigation back or sheet close
+    @Published var movieToShowDetails: MovieSearchResult? = nil
+    
     @Published var detailedMovie: Movie?
     
     init(

@@ -18,8 +18,6 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 struct MoviesView: View {
     @StateObject var moviesViewModel = MoviesViewModel()
     
-    @State private var movieToShowDetails: MovieSearchResult? = nil
-    
     var body: some View {
         ZStack(alignment: .top) {
             Group {
@@ -56,8 +54,8 @@ struct MoviesView: View {
                                         ForEach(moviesViewModel.upcomingMovies.results) { movie in
                                             VerticalMovieCardView(moviesViewModel: moviesViewModel, movie: movie)
                                                 .onTapGesture {
-                                                    if movieToShowDetails == nil {
-                                                        movieToShowDetails = movie
+                                                    if moviesViewModel.movieToShowDetails == nil {
+                                                        moviesViewModel.movieToShowDetails = movie
                                                     }
                                                 }
                                         }
@@ -101,9 +99,11 @@ struct MoviesView: View {
             }
         }
         .background(Color("Raisin black"))
-        .sheet(item: $movieToShowDetails, content: { movie in
+        .sheet(item: $moviesViewModel.movieToShowDetails) {
+            moviesViewModel.detailedMovie = nil
+        } content: { movie in
             DetailedMovieView(moviesViewModel: moviesViewModel, movie: movie)
-        })
+        }
 
     }
 }
