@@ -53,7 +53,7 @@ struct HorizontalMoviesSlider: View {
                     }
                 }
                 .onEnded { value in
-                    withAnimation {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 1)) {
                         /// using predictedEndTranslation to be able to get the fast but shorter drags
                         offsetAmount = value.predictedEndTranslation.width
                         
