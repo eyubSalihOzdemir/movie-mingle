@@ -61,56 +61,69 @@ struct DetailedMovieView: View {
                 }
             }
             
-            VStack(spacing: 20) {
-                Text(moviesViewModel.detailedMovie?.tagline ?? "")
-                    .font(.title2.weight(.bold))
-                
-                HStack {
-                    Spacer()
-                    HStack(spacing: 5) {
-                        Image(systemName: "calendar")
-                            .foregroundColor(.secondary)
-                        Text(moviesViewModel.detailedMovie?.releaseDate ?? "")
+            Group {
+                if moviesViewModel.loadingMovieDetails {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        
+                        ProgressView()
+                        
+                        Spacer()
                     }
-                    Spacer()
-                    HStack(spacing: 5) {
-                        Image(systemName: "clock")
-                            .foregroundColor(.secondary)
-                        Text(String(moviesViewModel.detailedMovie?.runtime.codingKey.stringValue ?? ""))
+                    .frame(maxWidth: .infinity)
+                } else {
+                    VStack(spacing: 20) {
+                        Text(moviesViewModel.detailedMovie?.tagline ?? "")
+                            .font(.title2.weight(.bold))
+                        
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 5) {
+                                Image(systemName: "calendar")
+                                    .foregroundColor(.secondary)
+                                Text(moviesViewModel.detailedMovie?.releaseDate ?? "")
+                            }
+                            Spacer()
+                            HStack(spacing: 5) {
+                                Image(systemName: "clock")
+                                    .foregroundColor(.secondary)
+                                Text(String(moviesViewModel.detailedMovie?.runtime.codingKey.stringValue ?? ""))
+                            }
+                            Spacer()
+                            HStack(spacing: 5) {
+                                Image(systemName: "location.circle")
+                                    .foregroundColor(.secondary)
+                                Text(moviesViewModel.countries)
+                            }
+                            Spacer()
+                        }
+                        
+                        Text(moviesViewModel.importantPeople)
+                        
+                        // direct to "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID)/"
+                        Link(destination: URL(string: "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID ?? "")/")!) {
+                            HStack(spacing: 5) {
+                                Text("Visit")
+                                Image("imdb")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                            }
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(lineWidth: 1)
+                                    .frame(width: 84, height: 28)
+                            }
+                        }
+                        
+                        Text(moviesViewModel.detailedMovie?.overview ?? "")
+                        
+                        Text(moviesViewModel.detailedMovie?.belongsToCollection?.name ?? "")
                     }
-                    Spacer()
-                    HStack(spacing: 5) {
-                        Image(systemName: "location.circle")
-                            .foregroundColor(.secondary)
-                        Text(moviesViewModel.countries)
-                    }
-                    Spacer()
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
                 }
-                
-                Text(moviesViewModel.importantPeople)
-                
-                // direct to "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID)/"
-                Link(destination: URL(string: "https://www.imdb.com/title/\(moviesViewModel.detailedMovie?.imdbID ?? "")/")!) {
-                    HStack(spacing: 5) {
-                        Text("Visit")
-                        Image("imdb")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40)
-                    }
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(lineWidth: 1)
-                            .frame(width: 84, height: 28)
-                    }
-                }
-                
-                Text(moviesViewModel.detailedMovie?.overview ?? "")
-                
-                Text(moviesViewModel.detailedMovie?.belongsToCollection?.name ?? "")
             }
-            .frame(maxWidth: .infinity)
-            .padding(10)
             
             Spacer()
         }
