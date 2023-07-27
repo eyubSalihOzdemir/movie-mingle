@@ -8,6 +8,7 @@
 import Foundation
 
 @MainActor class MoviesViewModel: ObservableObject {
+    @Published var loadingMovieDetails: Bool
     @Published var loadingMoviesView: Bool
     @Published var loading: Bool
     
@@ -21,6 +22,33 @@ import Foundation
     
     //todo: make this 'nil' on navigation back or sheet close
     @Published var detailedMovie: Movie?
+    
+    init(
+        loading: Bool = false,
+        navigationBarHidden: Bool = false,
+        searchText: String = "",
+        movieSearchResults: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        trendingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        upcomingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
+        previousSearch: String = "",
+        loadingMoviesView: Bool = false,
+        loadingMovieDetails: Bool = false
+    ) {
+        self.loading = loading
+        self.navigationBarHidden = navigationBarHidden
+        self.searchText = searchText
+        self.movieSearchResults = movieSearchResults
+        self.previousSearch = previousSearch
+        self.trendingMovies = trendingMovies
+        self.upcomingMovies = upcomingMovies
+        self.loadingMoviesView = loadingMoviesView
+        self.loadingMovieDetails = loadingMovieDetails
+        
+        Task {
+            await self.getTrendingMovies()
+            await self.getUpcomingMovies()
+        }
+    }
     
     var countries: String {
         var countryList = [String]()
@@ -48,41 +76,16 @@ import Foundation
     
     var workItem: DispatchWorkItem?
     
-    init(
-        loading: Bool = false,
-        navigationBarHidden: Bool = false,
-        searchText: String = "",
-        movieSearchResults: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
-        trendingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
-        upcomingMovies: MovieSearchResponse = MovieSearchResponse(page: 1, results: [], totalPages: 1, totalResults: 0),
-        previousSearch: String = "",
-        loadingMoviesView: Bool = false
-    ) {
-        self.loading = loading
-        self.navigationBarHidden = navigationBarHidden
-        self.searchText = searchText
-        self.movieSearchResults = movieSearchResults
-        self.previousSearch = previousSearch
-        self.trendingMovies = trendingMovies
-        self.upcomingMovies = upcomingMovies
-        self.loadingMoviesView = loadingMoviesView
-        
-        Task {
-            await self.getTrendingMovies()
-            await self.getUpcomingMovies()
-        }
-    }
-    
     func getDateFromString(from: String) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
     }
     
     func getMovieDetails(movieId: Int) async {
-        loading = true
+        loadingMovieDetails = true
         
         guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieId)?api_key=\(Constants.apiKey)&append_to_response=credits") else {
-            loading = false
+            loadingMovieDetails = false
             print("Invalid URL for getting movie details")
             return
         }
@@ -101,7 +104,7 @@ import Foundation
             print("Invalid data for getting movie details")
         }
         
-        loading = false
+        loadingMovieDetails = false
     }
     
     func getMoviesBySearch() async {
