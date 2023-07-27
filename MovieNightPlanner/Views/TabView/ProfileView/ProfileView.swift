@@ -46,7 +46,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 Text("More profile feature will be listed here in the future!")
-                    .font(.title3.weight(.light))
+                    .font(.headline.weight(.light))
                     .padding(.horizontal, 20)
                 
                 Spacer()
