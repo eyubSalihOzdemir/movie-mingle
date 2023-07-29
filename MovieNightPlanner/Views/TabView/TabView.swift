@@ -15,7 +15,7 @@ struct TabView: View {
     var body: some View {
         NavigationView {
             SwiftUI.TabView(selection: $selection) {
-                EventsView()
+                EventsView(userViewModel: userViewModel)
                     .tabItem {
                         Label("Events", image: "eventsIcon_white")
                     }

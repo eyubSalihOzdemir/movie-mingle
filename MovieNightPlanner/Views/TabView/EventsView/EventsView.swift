@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EventsView: View {
     @StateObject var eventsViewModel = EventsViewModel()
+    @ObservedObject var userViewModel: UserViewModel
     
     @State private var navigationBarHidden = false
     @State private var showingEventCreationSheet = false
@@ -16,10 +17,6 @@ struct EventsView: View {
     var body: some View {
         ZStack(alignment: .top) {
             CustomScrollView(navigationBarHidden: $navigationBarHidden) {
-//                ForEach(0..<20, id: \.self) { movie in
-//                    RoundedRectangle(cornerRadius: 20)
-//                        .frame(width: 100, height: 100)
-//                }
                 EmptyView()
             }
             
@@ -40,7 +37,7 @@ struct EventsView: View {
                     .ignoresSafeArea()
                 
                 Button {
-                    eventsViewModel.createEvent()
+                    eventsViewModel.createEvent(userViewModel: userViewModel)
                 } label: {
                     Text("Create event")
                         .frame(width: 200, height: 100)
@@ -54,6 +51,6 @@ struct EventsView: View {
 
 struct EventsView_Previews: PreviewProvider {
     static var previews: some View {
-        EventsView()
+        EventsView(userViewModel: UserViewModel())
     }
 }
