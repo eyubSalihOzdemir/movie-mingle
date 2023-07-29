@@ -32,6 +32,8 @@
 		25AC4F582A55D42F00152AF2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AC4F572A55D42F00152AF2 /* WelcomeView.swift */; };
 		25C4BF932A627AC600E9BC38 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C4BF922A627AC600E9BC38 /* Toast.swift */; };
 		25C4BF962A627BC000E9BC38 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C4BF952A627BC000E9BC38 /* ToastView.swift */; };
+		25CB0C222A74F66400426AED /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CB0C212A74F66400426AED /* EventsViewModel.swift */; };
+		25CB0C242A74F88600426AED /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CB0C232A74F88600426AED /* Event.swift */; };
 		25CCB7E52A5AAE0700FBA93F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */; };
 		25DDC6602A56F4B1006C43BD /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DDC65F2A56F4B1006C43BD /* Tabs.swift */; };
 		25ED7B722A5C741C000A9F6B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED7B712A5C741C000A9F6B /* Constants.swift */; };
@@ -75,6 +77,8 @@
 		25AC4F5B2A55E9DD00152AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25C4BF922A627AC600E9BC38 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		25C4BF952A627BC000E9BC38 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		25CB0C212A74F66400426AED /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
+		25CB0C232A74F88600426AED /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		25DDC65F2A56F4B1006C43BD /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		25ED7B712A5C741C000A9F6B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				251187412A59CC9800D24597 /* User.swift */,
 				25F97F672A5D81F900EBA9E1 /* MovieSearchResponse.swift */,
 				252124592A654F590083073C /* Movie.swift */,
+				25CB0C232A74F88600426AED /* Event.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				259483BE2A54513F00152705 /* UserViewModel.swift */,
 				25CCB7E42A5AAE0700FBA93F /* ProfileViewModel.swift */,
 				25F97F652A5D332400EBA9E1 /* MoviesViewModel.swift */,
+				25CB0C212A74F66400426AED /* EventsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -455,6 +461,7 @@
 				2568CE922A576D4500AC5571 /* MoviesView.swift in Sources */,
 				25ED7B742A5CA719000A9F6B /* CustomScrollView.swift in Sources */,
 				25EE71972A51855B00B790BB /* AutoScrollBackgroundView.swift in Sources */,
+				25CB0C242A74F88600426AED /* Event.swift in Sources */,
 				259483BF2A54513F00152705 /* UserViewModel.swift in Sources */,
 				2568CE902A576D3500AC5571 /* EventsView.swift in Sources */,
 				25C4BF962A627BC000E9BC38 /* ToastView.swift in Sources */,
@@ -463,6 +470,7 @@
 				25A5B05E2A69D51200BC037C /* HorizontalMovieCardView.swift in Sources */,
 				2521245A2A654F590083073C /* Movie.swift in Sources */,
 				25CCB7E52A5AAE0700FBA93F /* ProfileViewModel.swift in Sources */,
+				25CB0C222A74F66400426AED /* EventsViewModel.swift in Sources */,
 				25F530CA2A6045C700E154CB /* MovieSearchCardView.swift in Sources */,
 				25FFEFD92A68BF9B0084655A /* HorizontalMoviesSlider.swift in Sources */,
 				258703812A549444000A0218 /* LottieView.swift in Sources */,

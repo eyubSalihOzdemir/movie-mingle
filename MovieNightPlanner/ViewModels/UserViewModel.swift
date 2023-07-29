@@ -152,12 +152,12 @@ import SwiftUI
     
     // MARK: Upload user to database
     func uploadUserToDatabase(user: User, id: String) {
-        if let encoded = try? JSONEncoder().encode(user) {
+        if let encodedUser = try? JSONEncoder().encode(user) {
             let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference()//.child("users")
             //guard let key = ref.child(newUser.id).key else { return }
             guard let key = ref.child(id).key else { return }
             do {
-                let jsonDict = try JSONSerialization.jsonObject(with: encoded)
+                let jsonDict = try JSONSerialization.jsonObject(with: encodedUser)
                 let childUpdates = ["/users/\(key)": jsonDict]
                 ref.updateChildValues(childUpdates)
                 print("Succesfully added new user info to the database")
