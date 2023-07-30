@@ -23,7 +23,17 @@ import FirebaseDatabase
     
     func getEvents(userID: String) {
         self.rootRef.child("users/\(userID)/events").observe(.childAdded) { snapshot in
-            //print(snapshot.value)
+            self.rootRef.child("events/\(snapshot.key)").observe(.value) { eventSnapshot in
+                if let data = try? JSONSerialization.data(withJSONObject: eventSnapshot.value as Any) {
+                    do {
+                        let decodedEvent = try JSONDecoder().decode(Event.self, from: data)
+                        
+                        self.events[snapshot.key] = decodedEvent
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
     }
     
@@ -35,7 +45,7 @@ import FirebaseDatabase
         dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .short
         
-        let newEvent = Event(date: dateFormatter.string(from: date), name: self.eventName)
+        let newEvent = Event(date: dateFormatter.string(from: date), name: self.eventName, participants: [userID: true])
 
         if let encodedEvent = try? JSONEncoder().encode(newEvent) {
             guard let key = self.rootRef.child("events/\(eventID)").key else { return }
@@ -43,13 +53,7 @@ import FirebaseDatabase
             do {
                 let jsonDict = try JSONSerialization.jsonObject(with: encodedEvent)
                 let eventUpdates = ["events/\(key)": jsonDict]
-                self.rootRef.updateChildValues(eventUpdates) { error, ref in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        self.rootRef.child("events/\(key)/participants/\(userID)").setValue(true)
-                    }
-                }
+                self.rootRef.updateChildValues(eventUpdates)
                 
                 self.rootRef.child("users/\(userID)/events/\(key)").setValue(true)
                 

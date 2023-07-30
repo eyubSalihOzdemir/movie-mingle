@@ -17,7 +17,9 @@ struct EventsView: View {
     var body: some View {
         ZStack(alignment: .top) {
             CustomScrollView(navigationBarHidden: $navigationBarHidden) {
-                EmptyView()
+                ForEach(eventsViewModel.events.sorted(by: >), id: \.key) { event in
+                    Text(event.value.date)
+                }
             }
             
             CustomNavigationBar(title: "Events") {
