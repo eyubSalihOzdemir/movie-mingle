@@ -186,7 +186,6 @@ import SwiftUI
             if let data = try? JSONSerialization.data(withJSONObject: snapshot?.value) {
                 if let decoded = try? JSONDecoder().decode(User.self, from: data) {
                     self.currentUser = decoded
-                    
                 } else {
                     print("Error! Couldn't read database snapshot")
                 }

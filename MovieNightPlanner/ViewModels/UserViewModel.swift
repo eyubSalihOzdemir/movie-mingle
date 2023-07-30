@@ -39,18 +39,18 @@ import SwiftUI
     }
     
     deinit {
-        guard let handle = handle else { return }
-        Auth.auth().removeStateDidChangeListener(handle)
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
     }
     
     func listenToAuthState() {
-        print("listenToAuthState ran")
         self.handle = Auth.auth().addStateDidChangeListener { _, user in
             if let user = user {
                 self.authUser = user
                 
                 self.rootRef.child("users/\(user.uid)").observe(.value) { snapshot in
-                    if let data = try? JSONSerialization.data(withJSONObject: snapshot.value) {
+                    if let data = try? JSONSerialization.data(withJSONObject: snapshot.value as Any) {
                         if let decodedUser = try? JSONDecoder().decode(User.self, from: data) {
                             self.user = decodedUser
                         } else {
@@ -66,55 +66,79 @@ import SwiftUI
     
     func registerUser() {
         self.loading = true
-        
-        //todo: do necessary checks before registering user (unique username, valid email and password)
-        
-        Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-            if let user = authResult?.user, error == nil {
-                let newUser = User(
-                    username: self.username,
-                    avatar: String(format: "%03d", Int.random(in: 1..<79))
-//                    events: nil,
-//                    favoriteMovies: nil,
-//                    friends: nil
-                )
+
+        checkUsernameAlreadyExists { isExists in
+            if isExists {
+                print("Username already exists!")
+                self.toast = Toast(style: .error, message: "Username already exists")
                 
-                if let encodedUser = try? JSONEncoder().encode(newUser) {
-                    guard let key = self.rootRef.child(user.uid).key else { return }
-                    
-                    do {
-                        let jsonDict = try JSONSerialization.jsonObject(with: encodedUser)
-                        let childUpdates = ["/users/\(key)": jsonDict]
-                        self.rootRef.updateChildValues(childUpdates)
-                        print("Succesfully added new user info to the database")
-                    } catch let error {
-                        print("Error! Couldn't convert JSON to Dictionary")
-                        print(error.localizedDescription)
-                    }
-                }
-                
-                //self.loginUser()
+                self.loading = false
             } else {
-                print("Error in createUser: \(error?.localizedDescription ?? "")")
+                Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+                    if let user = authResult?.user, error == nil {
+                        let newUser = User(
+                            username: self.username,
+                            avatar: String(format: "%03d", Int.random(in: 1..<79))
+        //                    events: nil,
+        //                    favoriteMovies: nil,
+        //                    friends: nil
+                        )
+                        
+                        if let encodedUser = try? JSONEncoder().encode(newUser) {
+                            guard let key = self.rootRef.child("users/\(user.uid)").key else { return }
+                            
+                            print("Key: \(key)")
+                            
+                            do {
+                                let jsonDict = try JSONSerialization.jsonObject(with: encodedUser)
+                                let childUpdates = ["/users/\(key)": jsonDict]
+                                self.rootRef.updateChildValues(childUpdates)
+                                print("Succesfully added new user info to the database")
+                            } catch let error {
+                                print("Error! Couldn't convert JSON to Dictionary")
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        //self.loginUser()
+                    } else {
+                        print("Error in createUser: \(error?.localizedDescription ?? "")")
+                    }
+                    
+                    self.loading = false
+                }
             }
         }
     }
     
     func loginUser() {
+        self.loading = true
+        
         Auth.auth().signIn(withEmail: self.email, password: self.password) { user, error in
             if let error = error, user == nil {
                 self.toast = Toast(style: .error, message: error.localizedDescription)
                 
                 print("Error in login: \(error.localizedDescription)")
             }
+            
+            self.loading = false
         }
     }
     
     func logout() {
         self.isShowingLoginTab = true
+        
         self.username = ""
         self.password = ""
         self.email = ""
+        self.avatar = ""
+        
+        self.user = nil
+        self.authUser = nil
+        
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
         
         do {
             try Auth.auth().signOut()
@@ -122,5 +146,16 @@ import SwiftUI
         } catch let signOutError as NSError {
             print("Error logging out: %@", signOutError)
         }
+    }
+    
+    func checkUsernameAlreadyExists(completion: @escaping(Bool) -> Void) {
+        self.rootRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: self.username)
+            .observeSingleEvent(of: .value) { snapshot in
+                if snapshot.exists() {
+                    completion(true)
+                } else{
+                    completion(false)
+                }
+            }
     }
 }

@@ -5,8 +5,6 @@
 //  Created by Salih Özdemir on 8.07.2023.
 //
 
-//   let user = try? JSONDecoder().decode(User.self, from: jsonData)
-
 import Foundation
 
 struct User: Codable {

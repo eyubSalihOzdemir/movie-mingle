@@ -26,7 +26,6 @@ struct EventsView: View {
                 } label: {
                     NavigationBarIcon(icon: "plus")
                 }
-
             }
             .offset(y: navigationBarHidden ? -100 : 0)
         }
@@ -37,7 +36,7 @@ struct EventsView: View {
                     .ignoresSafeArea()
                 
                 Button {
-                    eventsViewModel.createEvent(userViewModel: userViewModel)
+                    eventsViewModel.createEvent(userID: userViewModel.authUser!.uid)
                 } label: {
                     Text("Create event")
                         .frame(width: 200, height: 100)
@@ -45,6 +44,9 @@ struct EventsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
+        }
+        .onAppear {
+            eventsViewModel.getEvents(userID: userViewModel.authUser!.uid)
         }
     }
 }
