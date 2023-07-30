@@ -60,7 +60,7 @@ struct SignUpTabView: View {
                 
                 VStack {
                     Button {
-                        userViewModel.signUp()
+                        userViewModel.registerUser()
                     } label: {
                         ZStack(alignment: .center) {
                             RoundedRectangle(cornerRadius: 18, style: .continuous)

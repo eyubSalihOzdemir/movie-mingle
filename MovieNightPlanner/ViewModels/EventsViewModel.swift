@@ -14,8 +14,8 @@ import FirebaseDatabase
     }
     
     func createEvent(userViewModel: UserViewModel) {
-        userViewModel.currentUser?.friends?.wrappedValue.forEach { friend in
-            print("Friend: \(friend.nickname ?? "No nickname")")
-        }
+//        userViewModel.currentUser?.friends?.wrappedValue.forEach { friend in
+//            print("Friend: \(friend.nickname ?? "No nickname")")
+//        }
     }
 }
