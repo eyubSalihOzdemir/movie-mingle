@@ -137,10 +137,6 @@ import SwiftUI
         self.user = nil
         self.authUser = nil
         
-        if let handle = handle {
-            Auth.auth().removeStateDidChangeListener(handle)
-        }
-        
         do {
             try Auth.auth().signOut()
             print("Signed out")
