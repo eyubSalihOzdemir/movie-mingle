@@ -21,6 +21,10 @@ import FirebaseDatabase
         print("EventsViewModel initialized.")
     }
     
+    deinit {
+        print("Deinitializing EventsViewModel!")
+    }
+    
     func getEvents(userID: String) {
         self.rootRef.child("users/\(userID)/events").observe(.childAdded) { snapshot in
             self.rootRef.child("events/\(snapshot.key)").observe(.value) { eventSnapshot in

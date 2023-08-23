@@ -37,7 +37,7 @@ import SwiftUI
     init() {
         print("UserViewModel initialized.")
         
-        listenToAuthState()
+        self.listenToAuthState()
     }
     
     deinit {
@@ -50,7 +50,6 @@ import SwiftUI
         self.handle = Auth.auth().addStateDidChangeListener { _, user in
             if let user = user {
                 self.authUser = user
-                
                 self.rootRef.child("users/\(user.uid)").observe(.value) { snapshot in
                     if let data = try? JSONSerialization.data(withJSONObject: snapshot.value as Any) {
                         if let decodedUser = try? JSONDecoder().decode(User.self, from: data) {
