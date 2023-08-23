@@ -20,13 +20,15 @@ import SwiftUI
     @Published var username = ""
     @Published var avatar = ""
     
-    @Published var signedIn = false
-    
-    @Published var currentUser: User? = nil
-    
     @Published var toast: Toast? = nil
     
-    var user: FirebaseAuth.User? {
+    @Published var user: User? = nil
+    
+    private let rootRef = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app").reference()
+    
+    var handle: AuthStateDidChangeListenerHandle?
+    
+    var authUser: FirebaseAuth.User? {
         didSet {
             objectWillChange.send()
         }
@@ -35,66 +37,120 @@ import SwiftUI
     init() {
         print("UserViewModel initialized.")
         
-        listenToAuthState()
+        self.listenToAuthState()
+    }
+    
+    deinit {
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
     }
     
     func listenToAuthState() {
-        Auth.auth().addStateDidChangeListener { [weak self] _, user in
-            guard let self = self else {
-                return
-            }
-            
+        self.handle = Auth.auth().addStateDidChangeListener { _, user in
             if let user = user {
-                if(self.user != user) {
-                    self.user = user
-                    
-                    if let timeInterval = user.metadata.creationDate?.timeIntervalSinceNow {
-                        /// means only get the user info if the user is not signed up in the last 10 seconds
-                        /// when sign ups, the currentUser info is already saved, so this is to prevent redundancy
-                        if !(timeInterval > -10) {
-                            self.getUserFromDatabase(uid: user.uid)
+                self.authUser = user
+                self.rootRef.child("users/\(user.uid)").observe(.value) { snapshot in
+                    if let data = try? JSONSerialization.data(withJSONObject: snapshot.value as Any) {
+                        if let decodedUser = try? JSONDecoder().decode(User.self, from: data) {
+                            self.user = decodedUser
+                        } else {
+                            print("Error! Couldn't read database snapshot")
                         }
                     }
                 }
             } else {
-                self.user = nil
+                self.authUser = nil
             }
         }
     }
     
-    // MARK: Sign in
-    func signIn() {
-        if !self.loading {
-            withAnimation {
-                self.loading = true
+    func registerUser() {
+        self.loading = true
+
+        checkUsernameAlreadyExists { isExists in
+            if isExists {
+                print("Username already exists!")
+                self.toast = Toast(style: .error, message: "Username already exists")
+                
+                self.loading = false
+            } else {
+                Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
+                    if let user = authResult?.user, error == nil {
+                        let newUser = User(
+                            username: self.username,
+                            avatar: String(format: "%03d", Int.random(in: 1..<79))
+        //                    events: nil,
+        //                    favoriteMovies: nil,
+        //                    friends: nil
+                        )
+                        
+                        if let encodedUser = try? JSONEncoder().encode(newUser) {
+                            guard let key = self.rootRef.child("users/\(user.uid)").key else { return }
+                            
+                            print("Key: \(key)")
+                            
+                            do {
+                                let jsonDict = try JSONSerialization.jsonObject(with: encodedUser)
+                                let childUpdates = ["/users/\(key)": jsonDict]
+                                self.rootRef.updateChildValues(childUpdates)
+                                print("Succesfully added new user info to the database")
+                            } catch let error {
+                                print("Error! Couldn't convert JSON to Dictionary")
+                                print(error.localizedDescription)
+                            }
+                        }
+                        
+                        //self.loginUser()
+                    } else {
+                        print("Error in createUser: \(error?.localizedDescription ?? "")")
+                    }
+                    
+                    self.loading = false
+                }
+            }
+        }
+    }
+    
+    func loginUser() {
+        self.loading = true
+        
+        Auth.auth().signIn(withEmail: self.email, password: self.password) { user, error in
+            if let error = error, user == nil {
+                self.toast = Toast(style: .error, message: error.localizedDescription)
+                
+                print("Error in login: \(error.localizedDescription)")
             }
             
-            Auth.auth().signIn(withEmail: self.email, password: self.password) { [weak self] authResult, error in
-                guard self != nil else { return }
-                
-                if authResult != nil {
-                    print("Successfully signed in!")
-                                        
-                    self?.signedIn = true
-                }
-                
-                if let error = error {
-                    print("There was an error during login!")
-                    print(error.localizedDescription)
-                    //
-                    self?.toast = Toast(style: .error, message: error.localizedDescription)
-                }
-                
-                withAnimation {
-                    self?.loading = false
-                }
-            }
+            self.loading = false
         }
     }
     
-    func checkUsernameAlreadyExists(username: String, completion: @escaping(Bool) -> Void) {
-        let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-        ref.child("users").queryOrdered(byChild: "username").queryEqual(toValue: username)
+    func logout() {
+        self.isShowingLoginTab = true
+        
+        self.username = ""
+        self.password = ""
+        self.email = ""
+        self.avatar = ""
+        
+        self.user = nil
+        self.authUser = nil
+        
+        if let handle = handle {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
+        
+        do {
+            try Auth.auth().signOut()
+            print("Signed out")
+        } catch let signOutError as NSError {
+            print("Error logging out: %@", signOutError)
+        }
+    }
+    
+    func checkUsernameAlreadyExists(completion: @escaping(Bool) -> Void) {
+        self.rootRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: self.username)
             .observeSingleEvent(of: .value) { snapshot in
                 if snapshot.exists() {
                     completion(true)
@@ -102,123 +158,5 @@ import SwiftUI
                     completion(false)
                 }
             }
-    }
-    
-    // MARK: Sign Up
-    func signUp() {
-        if !self.loading {
-            withAnimation {
-                self.loading = true
-            }
-            
-            checkUsernameAlreadyExists(username: username) { isExist in
-                if isExist {
-                    print("Username already exists!")
-                    self.toast = Toast(style: .error, message: "Username already exists")
-                    
-                    withAnimation {
-                        self.loading = false
-                    }
-                } else {
-                    print("Username doesn't exist!")
-                    Auth.auth().createUser(withEmail: self.email, password: self.password) { authResult, error in
-                        if authResult != nil {
-                            /// Updates the user's Ffirebase.displayName from username
-                            self.updateUsername()
-                            
-                            /// Upload newly signed up user info to database
-                            self.avatar = String(format: "%03d", Int.random(in: 1..<79))
-                            self.currentUser = User(username: self.username, avatar: self.avatar, events: nil, favoriteMovies: nil, friends: nil)
-                            self.uploadUserToDatabase(user: self.currentUser!, id: authResult!.user.uid)
-                            
-                            print("Successfully signed up!")
-                        }
-                        
-                        if let error = error {
-                            print("There was an error during sign up!")
-                            print(error.localizedDescription)
-                            //
-                            self.toast = Toast(style: .error, message: error.localizedDescription)
-                        }
-                        
-                        withAnimation {
-                            self.loading = false
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    // MARK: Upload user to database
-    func uploadUserToDatabase(user: User, id: String) {
-        if let encodedUser = try? JSONEncoder().encode(user) {
-            let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference()//.child("users")
-            //guard let key = ref.child(newUser.id).key else { return }
-            guard let key = ref.child(id).key else { return }
-            do {
-                let jsonDict = try JSONSerialization.jsonObject(with: encodedUser)
-                let childUpdates = ["/users/\(key)": jsonDict]
-                ref.updateChildValues(childUpdates)
-                print("Succesfully added new user info to the database")
-            } catch let error {
-                print("Error! Couldn't convert JSON to Dictionary")
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: Get user information from database and save to "currentUser"
-    func getUserFromDatabase(uid: String) {
-        let ref = Database.database(url: "https://movienightplanner-c3b6c-default-rtdb.europe-west1.firebasedatabase.app/").reference().child("users/\(uid)")
-        ref.getData { error, snapshot in
-            guard error == nil else {
-                print("\(error!.localizedDescription)")
-                return
-            }
-            
-            if let data = try? JSONSerialization.data(withJSONObject: snapshot?.value) {
-                if let decoded = try? JSONDecoder().decode(User.self, from: data) {
-                    self.currentUser = decoded
-                } else {
-                    print("Error! Couldn't read database snapshot")
-                }
-            }
-        }
-        
-    }
-    
-    // MARK: Update Username
-    func updateUsername() {
-        let changeRequest = self.user?.createProfileChangeRequest()
-        changeRequest?.displayName = self.username
-        changeRequest?.commitChanges { error in
-            if let error = error {
-                print("Error! Couldn't update display name!")
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // MARK: Sign Out
-    func signOut() {
-        self.loading = true
-        
-        self.isShowingLoginTab = true
-        self.username = ""
-        self.password = ""
-        self.email = ""
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-        
-        self.loading = false
-    }
-    
-    func forgotPassword() {
-        //
     }
 }

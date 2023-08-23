@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var userViewModel: UserViewModel
-    @ObservedObject var profileViewModel = ProfileViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     
     @State private var toast: Toast? = nil
     
@@ -24,7 +24,7 @@ struct ProfileView: View {
                     }
                 }
                 
-                Image(userViewModel.currentUser?.avatar ?? "063")
+                Image(userViewModel.user?.avatar ?? "063")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80)
@@ -35,12 +35,8 @@ struct ProfileView: View {
                         Circle()
                             .strokeBorder(.black, lineWidth: 3)
                     }
-                    .onTapGesture {
-                        print("Trying to show toast")
-                        toast = Toast(style: .success, message: "Saved.", width: 160)
-                    }
-                
-                Text(userViewModel.currentUser?.username ?? "Unknown")
+
+                Text(userViewModel.user?.username ?? "Unknown")
                     .font(.headline.weight(.semibold))
                 
                 Spacer()
@@ -52,7 +48,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button {
-                    userViewModel.signOut()
+                    userViewModel.logout()
                 } label: {
                     Text("Sign out")
                 }

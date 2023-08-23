@@ -10,7 +10,7 @@ import SwiftUI
 struct TabView: View {
     @ObservedObject var userViewModel: UserViewModel
     //@State private var selectedTab: Tab = .movies
-    @State private var selection = 1
+    @State private var selection = 2
     
     var body: some View {
         NavigationView {

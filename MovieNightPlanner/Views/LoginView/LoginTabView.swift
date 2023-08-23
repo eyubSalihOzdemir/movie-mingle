@@ -10,11 +10,6 @@ import SwiftUI
 struct LoginTabView: View {
     @ObservedObject var userViewModel: UserViewModel
     
-    //@State private var emailAddress: String = ""
-    //@State private var password: String = ""
-    
-    //@Binding var isShowingLoginTab: Bool
-    
     var namespace: Namespace.ID
     
     var body: some View {
@@ -46,7 +41,6 @@ struct LoginTabView: View {
                             .foregroundColor(.secondary)
                     }
                     .buttonStyle(.plain)
-
                 }
             }
             .padding(.top, 30)
@@ -54,7 +48,7 @@ struct LoginTabView: View {
             
             VStack {
                 Button {
-                    userViewModel.signIn()
+                    userViewModel.loginUser()
                 } label: {
                     ZStack(alignment: .center) {
                         RoundedRectangle(cornerRadius: 18, style: .continuous)

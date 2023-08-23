@@ -57,14 +57,14 @@ struct CustomNavigationBar<Content: View>: View {
                         }
                     }
                 }
-                .frame(height: Constants.searchBarHieght)
+                .frame(height: Constants.searchBarHeight)
                 .foregroundColor(.secondary)
                 .padding(.horizontal, Constants.searchBarHorizontalPadding)
                 .background(Color.secondary.opacity(0.5))
                 .cornerRadius(Constants.searchBarCornerRadius)
             }
         }
-        .frame(height: searchText != nil ? 5 + Constants.customNavBarHeight + Constants.searchBarHieght : Constants.customNavBarHeight)
+        .frame(height: searchText != nil ? 5 + Constants.customNavBarHeight + Constants.searchBarHeight : Constants.customNavBarHeight)
         .padding(.horizontal, Constants.customNavBarHorizontalPadding)
         //.background(.red)
     }

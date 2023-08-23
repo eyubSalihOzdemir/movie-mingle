@@ -11,7 +11,7 @@ struct Constants {
     static let customTabBarHeight: CGFloat = CGFloat(88)
     static let customTabBarCornerRadius: CGFloat = CGFloat(40)
     
-    static let searchBarHieght: CGFloat = CGFloat(34)
+    static let searchBarHeight: CGFloat = CGFloat(34)
     static let searchBarCornerRadius: CGFloat = CGFloat(12)
     static let searchBarHorizontalPadding: CGFloat = CGFloat(7)
     

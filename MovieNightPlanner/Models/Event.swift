@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct Event: Codable {
+struct Event: Codable, Comparable, Hashable {
     let date: String
     let name: String
-    let participants: [Participant]
-}
-
-struct Participant: Codable {
-    let id: Bool
+    let participants: [String: Bool]
+    
+    static func <(lhs: Event, rhs: Event) -> Bool {
+        //todo: create a computed property that converts 'date: String' to 'dateObj: Date' and use that Date variable to compare
+        return lhs.date < rhs.date
+    }
 }
