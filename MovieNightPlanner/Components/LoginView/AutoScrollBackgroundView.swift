@@ -19,7 +19,7 @@ struct AutoScrollBackgroundView: View {
     
     var numbers = Array(1...10)
     
-    /// get a random number at the beginning to be able and use it with modulus to column number, to change the column places. so that images can show up on different places (columns).
+    /// get a random number at the beginning to be able and use it with modulus to column number, to change the column places. so that images can show up on different places (columns) on every load.
     let randomInt = Int.random(in: 1..<100)
 
     var body: some View {

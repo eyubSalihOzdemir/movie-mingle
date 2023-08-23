@@ -41,7 +41,6 @@ struct LoginTabView: View {
                             .foregroundColor(.secondary)
                     }
                     .buttonStyle(.plain)
-
                 }
             }
             .padding(.top, 30)

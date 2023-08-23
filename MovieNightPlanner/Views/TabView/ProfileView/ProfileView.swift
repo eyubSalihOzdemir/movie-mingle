@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var userViewModel: UserViewModel
-    @ObservedObject var profileViewModel = ProfileViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     
     @State private var toast: Toast? = nil
     
@@ -34,10 +34,6 @@ struct ProfileView: View {
                     .overlay {
                         Circle()
                             .strokeBorder(.black, lineWidth: 3)
-                    }
-                    .onTapGesture {
-                        print("Trying to show toast")
-                        toast = Toast(style: .success, message: "Saved.", width: 160)
                     }
 
                 Text(userViewModel.user?.username ?? "Unknown")

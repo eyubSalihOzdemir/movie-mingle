@@ -19,7 +19,7 @@ struct CustomScrollView<Content: View>: View {
         ScrollView {
             Group {
                 Color.clear
-                    .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHieght + 10 : Constants.customNavBarHeight)
+                    .frame(height: searchBar ? Constants.customNavBarHeight + Constants.searchBarHeight + 10 : Constants.customNavBarHeight)
                 
                 content()
                 
