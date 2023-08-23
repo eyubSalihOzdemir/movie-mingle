@@ -36,6 +36,8 @@ import SwiftUI
     
     init() {
         print("UserViewModel initialized.")
+        
+        listenToAuthState()
     }
     
     deinit {
