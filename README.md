@@ -7,7 +7,11 @@ This application is still in development and you can see my ClickUp space [here]
 https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/8ba0c2e5-c35e-4e71-beec-eb4a2f4ca5ba
 
 #### Login Animation
-https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/1a820257-90f1-46a3-89e2-7b1f10b1cb49
+https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/a44f109e-d898-4dcb-8495-60abd5ae4ce7
 
-#### Movie Search Feature (In Development)
-https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/a9a3b61f-5fc5-47cf-aaed-5fcf422f7844
+#### Movie Search Feature
+https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/651fb29d-d438-4a2f-b633-e3047b81a807
+
+#### Movie View Scroll
+https://github.com/eyubSalihOzdemir/movie-mingle/assets/55896033/31aaad67-ec14-420d-91e9-1b74595ed545
+
