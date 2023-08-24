@@ -17,6 +17,10 @@ struct User: Codable {
 //    let friends: [UserFriend]?
 }
 
+struct Friend: Codable {
+    let nickname: String?
+}
+
 //struct UserEvent: Codable {
 //    let id: Bool
 //}

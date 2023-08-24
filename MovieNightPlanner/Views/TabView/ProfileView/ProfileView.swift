@@ -11,12 +11,35 @@ struct ProfileView: View {
     @ObservedObject var userViewModel: UserViewModel
     @StateObject var profileViewModel = ProfileViewModel()
     
-    @State private var toast: Toast? = nil
+    @State private var showingFriendsSheet = false
     
     var body: some View {
         ZStack {
             VStack {
                 CustomNavigationBar(title: "Profile") {
+                    Button {
+                        showingFriendsSheet.toggle()
+                    } label: {
+                        ZStack {
+                            NavigationBarIcon(icon: "person.2")
+                                .overlay {
+                                    if !profileViewModel.friendRequests.isEmpty {
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                
+                                                Circle()
+                                                    .fill(Color.red)
+                                                    .frame(width: 12, height: 12)
+                                            }
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                    
                     NavigationLink {
                         //todo: navigate to settings screen
                     } label: {
@@ -62,6 +85,115 @@ struct ProfileView: View {
             }
         }
         .background(Color("Raisin black"))
+        .sheet(isPresented: $showingFriendsSheet) {
+            VStack {
+                CustomNavigationBar(
+                    title: "Friends",
+                    searchText: $profileViewModel.searchText,
+                    searchBarHint: Constants.friendsSearchBarText,
+                    sideButtonText: "Add friend",
+                    sideButtonAction: profileViewModel.sendFriendRequest
+                ) {
+                    // no action button
+                }
+                .padding(.top, 10)
+                
+                Divider()
+                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                
+                if !profileViewModel.friends.isEmpty {
+                    ScrollView {
+                        if !profileViewModel.friendRequests.isEmpty {
+                            VStack {
+                                HStack {
+                                    Text("Requests")
+                                        .font(.title3.weight(.semibold))
+                                    
+                                    Spacer()
+                                }
+                                
+                                ForEach(profileViewModel.friendRequests, id: \.username) { possibleFriend in
+                                    HStack {
+                                        Image(possibleFriend.avatar)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 40)
+                                            .padding(5)
+                                            .background(Color(hex: "#f4ebd9"))
+                                            .clipShape(Circle())
+                                            .overlay {
+                                                Circle()
+                                                    .strokeBorder(.black, lineWidth: 2)
+                                            }
+                                        
+                                        Text(possibleFriend.username)
+                                        
+                                        Spacer()
+                                        
+                                        HStack {
+                                            Button {
+                                                profileViewModel.acceptFriendRequest(friendUsername: possibleFriend.username)
+                                            } label: {
+                                                Image("accept_icon")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                            }
+                                            .frame(width: 24)
+                                            .contentShape(Rectangle())
+                                            .padding(.trailing, 10)
+                                            
+                                            
+                                            Button {
+                                                profileViewModel.rejectFriendRequest(friendUsername: possibleFriend.username)
+                                            } label: {
+                                                Image("reject_icon")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                            }
+                                            .frame(width: 24)
+                                            .contentShape(Rectangle())
+                                            .padding(.trailing, 10)
+                                            
+                                        }
+                                    }
+                                }
+                                
+                                Divider()
+                            }
+                            .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                        }
+                        
+                        ForEach(profileViewModel.friends, id: \.username) { user in
+                            HStack {
+                                Image(user.avatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40)
+                                    .padding(5)
+                                    .background(Color(hex: "#f4ebd9"))
+                                    .clipShape(Circle())
+                                    .overlay {
+                                        Circle()
+                                            .strokeBorder(.black, lineWidth: 2)
+                                    }
+                                
+                                Text(user.username)
+                                
+                                Spacer()
+                            }
+                        }
+                        .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                    }
+                }
+                
+                Spacer()
+            }
+            .background(Color("Raisin black"))
+            .toastView(toast: $profileViewModel.toast)
+        }
+        .onAppear {
+            profileViewModel.getFriends(userID: userViewModel.authUser!.uid)
+        }
     }
 }
 

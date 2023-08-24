@@ -68,7 +68,7 @@ import SwiftUI
     func registerUser() {
         self.loading = true
 
-        checkUsernameAlreadyExists { isExists in
+        self.checkUsernameAlreadyExists(username: self.username) { isExists in
             if isExists {
                 print("Username already exists!")
                 self.toast = Toast(style: .error, message: "Username already exists")
@@ -103,6 +103,8 @@ import SwiftUI
                         
                         //self.loginUser()
                     } else {
+                        self.toast = Toast(style: .error, message: error?.localizedDescription ?? "")
+                        
                         print("Error in createUser: \(error?.localizedDescription ?? "")")
                     }
                     
@@ -145,8 +147,8 @@ import SwiftUI
         }
     }
     
-    func checkUsernameAlreadyExists(completion: @escaping(Bool) -> Void) {
-        self.rootRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: self.username)
+    func checkUsernameAlreadyExists(username: String, completion: @escaping(Bool) -> Void) {
+        self.rootRef.child("users").queryOrdered(byChild: "username").queryEqual(toValue: username)
             .observeSingleEvent(of: .value) { snapshot in
                 if snapshot.exists() {
                     completion(true)
