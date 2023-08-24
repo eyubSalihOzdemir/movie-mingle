@@ -11,12 +11,14 @@ struct CustomNavigationBar<Content: View>: View {
     let title: String
     var shouldPop: Bool
     var searchText: Binding<String>?
+    var searchBarHint: String
     let actions: () -> Content
     
-    init(title: String, shouldPop: Bool = false, searchText: Binding<String>? = nil, @ViewBuilder actions: @escaping () -> Content) {
+    init(title: String, shouldPop: Bool = false, searchText: Binding<String>? = nil, searchBarHint: String? = "Search", @ViewBuilder actions: @escaping () -> Content) {
         self.title = title
         self.shouldPop = shouldPop
         self.searchText = searchText
+        self.searchBarHint = searchBarHint!
         self.actions = actions
     }
     
@@ -48,7 +50,7 @@ struct CustomNavigationBar<Content: View>: View {
             if searchText != nil {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField(Constants.searchBarText, text: searchText!)
+                    TextField(searchBarHint, text: searchText!)
                     if !(searchText?.wrappedValue == "") {
                         Button {
                             searchText?.wrappedValue = ""

@@ -87,7 +87,7 @@ struct MoviesView: View {
                 }
             }
             
-            CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText) {
+            CustomNavigationBar(title: "Movies", searchText: $moviesViewModel.searchText, searchBarHint: Constants.movieSearchBarText) {
                 //todo: add a "Favorites" button here
             }
             .background(.thinMaterial)

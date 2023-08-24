@@ -18,7 +18,8 @@ struct Constants {
     static let customNavBarHeight: CGFloat = CGFloat(60)
     static let customNavBarHorizontalPadding: CGFloat = CGFloat(20)
     
-    static let searchBarText = "Search for a movie"
+    static let movieSearchBarText = "Search for a movie"
+    static let friendsSearchBarText = "Search for a username"
     
     static let apiAuthenticationHeader = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMTJlYmZlY2ZjOGUwNWIwNTAyOGI4OWNmMjI1Mzc1ZiIsInN1YiI6IjY0YWQzZDkxNmEzNDQ4MDBlYThlMGY5MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ"
     static let apiKey = "112ebfecfc8e05b05028b89cf225375f"
