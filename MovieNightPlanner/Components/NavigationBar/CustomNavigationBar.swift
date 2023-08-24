@@ -12,17 +12,23 @@ struct CustomNavigationBar<Content: View>: View {
     var shouldPop: Bool
     var searchText: Binding<String>?
     var searchBarHint: String
+    var sideButtonText: String
+    var sideButtonAction: (() async -> Void)?
     let actions: () -> Content
     
-    init(title: String, shouldPop: Bool = false, searchText: Binding<String>? = nil, searchBarHint: String? = "Search", @ViewBuilder actions: @escaping () -> Content) {
+    init(title: String, shouldPop: Bool = false, searchText: Binding<String>? = nil, searchBarHint: String? = "Search", sideButtonText: String? = "Action", sideButtonAction: (() async -> Void)? = nil, @ViewBuilder actions: @escaping () -> Content) {
         self.title = title
         self.shouldPop = shouldPop
         self.searchText = searchText
         self.searchBarHint = searchBarHint!
+        self.sideButtonText = sideButtonText!
+        self.sideButtonAction = sideButtonAction
         self.actions = actions
     }
     
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var isSideButtonVisible = false
     
     var body: some View {
         VStack(spacing: 5) {
@@ -49,21 +55,46 @@ struct CustomNavigationBar<Content: View>: View {
             
             if searchText != nil {
                 HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField(searchBarHint, text: searchText!)
-                    if !(searchText?.wrappedValue == "") {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField(searchBarHint, text: searchText!)
+                        if !(searchText?.wrappedValue == "") {
+                            Button {
+                                searchText?.wrappedValue = ""
+                            } label: {
+                                Image(systemName: "xmark.circle")
+                            }
+                        }
+                    }
+                    .frame(height: Constants.searchBarHeight)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, Constants.searchBarHorizontalPadding)
+                    .background(Color.secondary.opacity(0.5))
+                    .cornerRadius(Constants.searchBarCornerRadius)
+                    
+                    if isSideButtonVisible {
                         Button {
-                            searchText?.wrappedValue = ""
+                            Task {
+                                await sideButtonAction?()
+                            }
                         } label: {
-                            Image(systemName: "xmark.circle")
+                            Text(sideButtonText)
                         }
                     }
                 }
-                .frame(height: Constants.searchBarHeight)
-                .foregroundColor(.secondary)
-                .padding(.horizontal, Constants.searchBarHorizontalPadding)
-                .background(Color.secondary.opacity(0.5))
-                .cornerRadius(Constants.searchBarCornerRadius)
+                .onChange(of: searchText?.wrappedValue) { newValue in
+                    if sideButtonAction != nil {
+                        if newValue != "" {
+                            withAnimation {
+                                isSideButtonVisible = true
+                            }
+                        } else {
+                            withAnimation {
+                                isSideButtonVisible = false
+                            }
+                        }
+                    }
+                }
             }
         }
         .frame(height: searchText != nil ? 5 + Constants.customNavBarHeight + Constants.searchBarHeight : Constants.customNavBarHeight)
@@ -74,7 +105,7 @@ struct CustomNavigationBar<Content: View>: View {
 
 struct CustomNavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomNavigationBar(title: "Profile", shouldPop: true) {
+        CustomNavigationBar(title: "Profile", shouldPop: true, searchText: .constant(""), searchBarHint: "Search for something") {
             NavigationBarIcon(icon: "calendar")
             NavigationBarIcon(icon: "gearshape")
         }

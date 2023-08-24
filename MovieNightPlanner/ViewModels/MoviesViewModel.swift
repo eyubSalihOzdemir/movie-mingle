@@ -51,6 +51,8 @@ import Foundation
         }
     }
     
+    var workItem: DispatchWorkItem?
+    
     var countries: String {
         var countryList = [String]()
 
@@ -80,8 +82,6 @@ import Foundation
         
         return ""
     }
-    
-    var workItem: DispatchWorkItem?
     
     func getDateFromString(from: String) {
         let formatter = DateFormatter()
