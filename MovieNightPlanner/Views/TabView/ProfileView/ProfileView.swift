@@ -75,7 +75,7 @@ struct ProfileView: View {
                 } label: {
                     Text("Sign out")
                 }
-                .frame(width: 200, height: 80)
+                .frame(width: 160, height: 60)
                 .foregroundColor(.white)
                 .background(.red)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
