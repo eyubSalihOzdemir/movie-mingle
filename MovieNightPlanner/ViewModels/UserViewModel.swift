@@ -67,6 +67,11 @@ import SwiftUI
     
     func registerUser() {
         self.loading = true
+        
+        if !isValidUsername(username: self.username) {
+            self.loading = false
+            return
+        }
 
         self.checkUsernameAlreadyExists(username: self.username) { isExists in
             if isExists {
@@ -80,9 +85,6 @@ import SwiftUI
                         let newUser = User(
                             username: self.username,
                             avatar: String(format: "%03d", Int.random(in: 1..<79))
-        //                    events: nil,
-        //                    favoriteMovies: nil,
-        //                    friends: nil
                         )
                         
                         if let encodedUser = try? JSONEncoder().encode(newUser) {
@@ -156,5 +158,21 @@ import SwiftUI
                     completion(false)
                 }
             }
+    }
+    
+    func isValidUsername(username: String) -> Bool {
+        /// before even checking if the username is exist on the database (and disturbing it for nothing if the username is not vlaid), let's chek if it's a valid username first
+        /// we have 2 rules: username must be longer than or equal to 4 characters, it must not contain any number in it
+        if username.count >= 4 {
+            if username.first!.isNumber {
+                self.toast = Toast(style: .warning, message: "Username must not start with a number")
+                return false
+            } else {
+                return true
+            }
+        } else {
+            self.toast = Toast(style: .warning, message: "Username must be 4 characters long or more")
+            return false
+        }
     }
 }
