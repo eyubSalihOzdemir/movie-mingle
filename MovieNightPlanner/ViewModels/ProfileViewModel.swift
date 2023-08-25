@@ -38,19 +38,24 @@ import FirebaseDatabase
     
     func getFriends(userID: String) {
         self.userID = userID
-        //var myDatabaseHandle: DatabaseHandle!
         
-        self.rootRef.child("users/\(userID)/friends").observeSingleEvent(of: .childAdded) { snapshot in
-            self.rootRef.child("users/\(snapshot.key)").observe(.value) { userSnapshot in
-                //self.rootRef.removeObserver(withHandle: myDatabaseHandle)
-                
-                if let data = try? JSONSerialization.data(withJSONObject: userSnapshot.value) {
-                    do {
-                        let decodedFriend = try JSONDecoder().decode(User.self, from: data)
-                        
-                        self.friends.append(decodedFriend)
-                    } catch {
-                        print(error.localizedDescription)
+        self.rootRef.child("users/\(userID)/friends").observe(.value) { snapshot in
+            self.friends = []
+            if let snapshotValue = snapshot.value as? [String: Any] {
+                for key in snapshotValue.keys {
+                    //todo: Make this a single time event
+                    self.rootRef.child("users/\(key)").observeSingleEvent(of: .value) { userSnapshot in
+                        if let data = try? JSONSerialization.data(withJSONObject: userSnapshot.value) {
+                            do {
+                                let decodedFriend = try JSONDecoder().decode(User.self, from: data)
+
+                                self.friends.append(decodedFriend)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        } else {
+                            print("Error during JSON serialization")
+                        }
                     }
                 }
             }
