@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var userViewModel: UserViewModel
     @StateObject var profileViewModel = ProfileViewModel()
+    
+    @ObservedObject var userViewModel: UserViewModel
     
     @State private var showingFriendsSheet = false
     
