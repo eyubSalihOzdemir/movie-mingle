@@ -39,7 +39,7 @@ import FirebaseDatabase
                         
                         self.events[snapshot.key] = decodedEvent
                     } catch {
-                        print(error.localizedDescription)
+                        print(error)
                     }
                 }
             }
@@ -50,7 +50,9 @@ import FirebaseDatabase
         let eventID = UUID()
         
 //        let date = Date()
-//        let dateFormatter = DateFormatter()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.string(from: self.date)
 //        dateFormatter.timeStyle = .none
 //        dateFormatter.dateStyle = .short
         
@@ -64,7 +66,7 @@ import FirebaseDatabase
         
         self.people[userID] = true
         
-        let newEvent = Event(name: self.name, place: self.place, date: self.date.formatted(date: .numeric, time: .omitted), people: self.people)
+        let newEvent = Event(name: self.name, place: self.place, date: dateFormatter.string(from: self.date), creator: username, hexColor: self.generateRandomHexColor(), people: self.people, movies: [])
 
         if let encodedEvent = try? JSONEncoder().encode(newEvent) {
             guard let key = self.rootRef.child("events/\(eventID)").key else { return }
@@ -84,5 +86,17 @@ import FirebaseDatabase
         }
         
         self.showingEventCreationSheet = false
+    }
+    
+    func generateRandomHexColor() -> String {
+        let r = CGFloat(arc4random_uniform(256)) / 255.0
+        let g = CGFloat(arc4random_uniform(256)) / 255.0
+        let b = CGFloat(arc4random_uniform(256)) / 255.0
+        
+        let color = UIColor(red: r, green: g, blue: b, alpha: 1.0)
+        
+        let hexString = String(format: "#%02X%02X%02X", Int(r * 255), Int(g * 255), Int(b * 255))
+        
+        return hexString
     }
 }

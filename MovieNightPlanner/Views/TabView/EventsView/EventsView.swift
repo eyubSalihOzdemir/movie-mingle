@@ -15,13 +15,7 @@ struct EventsView: View {
     @State private var navigationBarHidden = false
     
     var body: some View {
-        ZStack(alignment: .top) {
-            CustomScrollView(navigationBarHidden: $navigationBarHidden) {
-                ForEach(eventsViewModel.events.sorted(by: >), id: \.key) { event in
-                    Text(event.value.date)
-                }
-            }
-            
+        VStack {
             CustomNavigationBar(title: "Events") {
                 Button {
                     eventsViewModel.showingEventCreationSheet.toggle()
@@ -29,7 +23,52 @@ struct EventsView: View {
                     NavigationBarIcon(icon: "plus")
                 }
             }
-            .offset(y: navigationBarHidden ? -100 : 0)
+            
+            ScrollView {
+                
+                ForEach(eventsViewModel.events.values.sorted(), id: \.self) { event in
+                    VStack {
+                        Text(event.name)
+                            .padding(.bottom, 20)
+                        
+                        Spacer()
+                        
+                        HStack(alignment: .bottom) {
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack {
+                                    Image(systemName: "calendar")
+                                    
+                                    Text(event.date)
+                                }
+                                
+                                HStack {
+                                    Image(systemName: "location")
+                                    
+                                    Text(event.place)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Text("Creator: \(event.creator)")
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18)
+                            .stroke(Color(hex: "\(event.hexColor)").opacity(0.75), lineWidth: 4)
+                    )
+                    .background(LinearGradient(colors: [Color(hex: "\(event.hexColor)").opacity(0.1), Color("Raisin black").opacity(0.1)], startPoint: .top, endPoint: .bottom))
+                    .mask {
+                        RoundedRectangle(cornerRadius: 18)
+                    }
+                    .padding(.horizontal, Constants.customNavBarHorizontalPadding)
+                    .padding(.top, 2)
+                }
+            }
         }
         .background(Color("Raisin black"))
         .sheet(isPresented: $eventsViewModel.showingEventCreationSheet) {
