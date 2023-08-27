@@ -54,6 +54,9 @@ import SwiftUI
                     if let data = try? JSONSerialization.data(withJSONObject: snapshot.value as Any) {
                         if let decodedUser = try? JSONDecoder().decode(User.self, from: data) {
                             self.user = decodedUser
+                            
+                            /// just to make some things easier
+                            self.username = decodedUser.username
                         } else {
                             print("Error! Couldn't read database snapshot")
                         }
