@@ -8,9 +8,10 @@
 import Foundation
 
 struct Event: Codable, Comparable, Hashable {
-    let date: String
     let name: String
-    let participants: [String: Bool]
+    let place: String
+    let date: String
+    let people: [String: Bool]
     
     static func <(lhs: Event, rhs: Event) -> Bool {
         //todo: create a computed property that converts 'date: String' to 'dateObj: Date' and use that Date variable to compare

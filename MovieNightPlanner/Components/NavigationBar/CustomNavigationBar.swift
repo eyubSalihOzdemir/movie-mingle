@@ -58,6 +58,7 @@ struct CustomNavigationBar<Content: View>: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                         TextField(searchBarHint, text: searchText!)
+                            .textInputAutocapitalization(.never)
                         if !(searchText?.wrappedValue == "") {
                             Button {
                                 searchText?.wrappedValue = ""
